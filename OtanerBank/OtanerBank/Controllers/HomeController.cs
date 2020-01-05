@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
+using Newtonsoft.Json;
 using OtanerBank.Models;
 
 namespace OtanerBank.Controllers
 {
     public class HomeController : Controller
     {
+        static HttpClient client = new HttpClient(); // to call the api later
+
         public IActionResult Index()
         {
-            return View();
+            Task<String> response = client.GetStringAsync("https://localhost:44329/Clients"); // This send a GET request to API and return the body as a String in 'response.Result'
+            string result = response.Result;
+
+            List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(result);
+
+            return View(Clients.ToList());
         }
 
         public IActionResult Register()

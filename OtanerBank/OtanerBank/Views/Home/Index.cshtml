@@ -1,55 +1,38 @@
-﻿@model IEnumerable<OtanerBank.Models.Client>
+﻿@model List<OtanerBank.Models.Client>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clients";
 }
 
-<h2>Index</h2>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                @Html.Label("ID")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.conta)
+                @Html.Label("CONTA")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CPF)
+                @Html.Label("CPF")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nome)
+                @Html.Label("NOME")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.email)
+                @Html.Label("SALDO")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.senha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.saldo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ultimoAcesso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.rendaGerada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nomeGerenteResponsavel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.emailGerenteResponsavel)
+                @Html.Label("SALDO")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.id)
@@ -64,25 +47,7 @@
                 @Html.DisplayFor(modelItem => item.nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.senha)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.saldo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ultimoAcesso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rendaGerada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nomeGerenteResponsavel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailGerenteResponsavel)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
@@ -90,6 +55,6 @@
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
