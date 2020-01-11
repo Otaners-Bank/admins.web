@@ -15,12 +15,13 @@ namespace OtanerBank.Controllers
     {
         static HttpClient client = new HttpClient(); // to call the api later
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            Task<String> response = client.GetStringAsync("https://localhost:44329/Clients"); // This send a GET request to API and return the body as a String in 'response.Result'
-            string result = response.Result;
+            string response = await client.GetStringAsync("https://localhost:44329/Clients");
+            List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
-            List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(result);
+            //string response = await client.GetStringAsync("https://localhost:44329/Clients");
+            //List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
             return View(Clients.ToList());
         }
@@ -32,7 +33,7 @@ namespace OtanerBank.Controllers
 
         public IActionResult Edit()
         {
-            return View();
+            return View("Edit");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

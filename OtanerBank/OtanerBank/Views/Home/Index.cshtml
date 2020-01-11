@@ -1,10 +1,35 @@
 ﻿@model List<OtanerBank.Models.Client>
 
 @{
-    ViewData["Title"] = "Clients";
+    ViewData["Title"] = "Clients list";
 }
 
 <br />
+
+
+<style>
+
+    .a{
+
+    }
+
+    .button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button2 {
+        border-radius: 12px;
+    }
+</style>
+
 
 <table class="table">
     <thead>
@@ -25,7 +50,7 @@
                 @Html.Label("SALDO")
             </th>
             <th>
-                @Html.Label("SALDO")
+                @Html.Label("OPÇÕES")
             </th>
             <th></th>
         </tr>
@@ -33,28 +58,88 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.conta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CPF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.saldo)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.conta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.saldo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
+                    <label  onclick="ShowModal();" class="a">Details</label>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+
+<div>
+
+    <fieldset>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="modal fade" tabindex="-1" id="loginModal"
+                         data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        ×
+                                    </button>
+                                    <h4 class="modal-title">Satya Login</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text"
+                                                   placeholder="Login Username" id="inputUserName" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" placeholder="Login Password"
+                                                   type="password" id="inputPassword" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btnHideModal" type="submit" class="btn btn-primary button button2 ">Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    function ShowModal() {
+        $("#loginModal").modal('show');
+    }
+
+    $("#btnHideModal").click(function () {
+        $("#loginModal").modal('hide');
+    });
+</script>
