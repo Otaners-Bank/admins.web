@@ -1,0 +1,151 @@
+﻿@model OtanerBank.Models.Client
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<style>
+
+    .a {
+    }
+
+    .button {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button2 {
+        border-radius: 12px;
+    }
+</style>
+
+<div>
+
+    <fieldset>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="modal fade" tabindex="-1" id="DetailsModal"
+                         data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button id="btnDimiss" type="button" class="close">
+                                        ×
+                                    </button>
+                                    <h4>@Model.nome</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+
+                                        <div>
+                                            <dl class="dl-horizontal">
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.id)
+                                                </dt>
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.id)
+                                                </dd>
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.conta)
+                                                </dt>
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.conta)
+                                                </dd>
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.CPF)
+                                                </dt>
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.CPF)
+                                                </dd>
+                                                <dt>
+                                                    @Html.DisplayNameFor(model => model.saldo)
+                                                </dt>
+                                                <dd>
+                                                    @Html.DisplayFor(model => model.saldo)
+                                                </dd>
+
+                                                @{
+                                                    if (Model.ultimoAcesso != null && Model.rendaGerada != null)
+                                                    {
+                                                        <dt>
+                                                            @Html.DisplayNameFor(model => model.ultimoAcesso)
+                                                        </dt>
+                                                        <dd>
+                                                            @Html.DisplayFor(model => model.ultimoAcesso)
+                                                        </dd>
+                                                        <dt>
+                                                            @Html.DisplayNameFor(model => model.rendaGerada)
+                                                        </dt>
+                                                        <dd>
+                                                            @Html.DisplayFor(model => model.rendaGerada)
+                                                        </dd>
+                                                    }
+                                                }
+
+                                                @{
+                                                    if (Model.nomeGerenteResponsavel != null && Model.nomeGerenteResponsavel != null)
+                                                    {
+                                                        <dt>
+                                                            @Html.DisplayNameFor(model => model.nomeGerenteResponsavel)
+                                                        </dt>
+                                                        <dd>
+                                                            @Html.DisplayFor(model => model.nomeGerenteResponsavel)
+                                                        </dd>
+                                                        <dt>
+                                                            @Html.DisplayNameFor(model => model.emailGerenteResponsavel)
+                                                        </dt>
+                                                        <dd>
+                                                            @Html.DisplayFor(model => model.emailGerenteResponsavel)
+                                                        </dd>
+                                                    }
+                                                }
+                                            </dl>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+
+                                    <div>
+                                        @Html.ActionLink("Edit Client", "Edit", new { /* id = Model.PrimaryKey */ })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#DetailsModal").modal('show');
+    });
+
+    $("#btnDimiss").click(function () {
+        window.location.href = "\.";
+    });
+
+</script>

@@ -31,3 +31,4 @@ C:\projects\vs\management.web.otaner.bank\OtanerBank\OtanerBank\obj\Debug\netcor
 C:\projects\vs\management.web.otaner.bank\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\Razor\Views\Home\Edit.cshtml.g.cs
 C:\projects\vs\management.web.otaner.bank\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\Razor\Views\Home\Register.cshtml.g.cs
 C:\projects\vs\management.web.otaner.bank\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\projects\vs\management.web.otaner.bank\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\Razor\Views\Home\Details.cshtml.g.cs

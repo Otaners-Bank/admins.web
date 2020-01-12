@@ -13,11 +13,11 @@ namespace OtanerBank.Controllers
 {
     public class HomeController : Controller
     {
-        static HttpClient client = new HttpClient(); // to call the api later
+        static HttpClient http = new HttpClient(); // to call the api later
 
         public async Task<IActionResult> Index()
         {
-            string response = await client.GetStringAsync("https://localhost:44329/Clients");
+            string response = await http.GetStringAsync("https://localhost:44329/Clients");
             List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
             //string response = await client.GetStringAsync("https://localhost:44329/Clients");
@@ -29,6 +29,15 @@ namespace OtanerBank.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Details(string CPF)
+        {
+            string response = await http.GetStringAsync("https://localhost:44329/Clients/" + CPF);
+            Client client = JsonConvert.DeserializeObject<Client>(response);
+
+            return View(client);
+
         }
 
         public IActionResult Edit()

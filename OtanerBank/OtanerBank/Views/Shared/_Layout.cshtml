@@ -42,10 +42,15 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2020 - Otaner's Bank</p>
-        </footer>
+        @{
+            if (ViewData["Title"].ToString() != "Details")
+            {
+                <hr />
+                <footer>
+                    <p>&copy; 2020 - Otaner's Bank</p>
+                </footer>
+            }
+        }
     </div>
 
     <environment include="Development">
