@@ -9,24 +9,28 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.Label("ID")
-            </th>
-            <th>
-                @Html.Label("ACCOUNT")
-            </th>
-            <th>
-                @Html.Label("CPF")
-            </th>
-            <th>
-                @Html.Label("NAME")
-            </th>
-            <th>
-                @Html.Label("BALANCE")
-            </th>
-            <th>
-                @Html.Label("OPTIONS")
-            </th>
+            @{
+                Client client = new Client();
+
+                <th>
+                    @Html.LabelFor(x => client.id)
+                </th>
+                <th>
+                    @Html.LabelFor(x => client.conta)
+                </th>
+                <th>
+                    @Html.LabelFor(x => client.CPF)
+                </th>
+                <th>
+                    @Html.LabelFor(x => client.nome)
+                </th>
+                <th>
+                    @Html.LabelFor(x => client.saldo)
+                </th>
+                <th>
+                    @Html.Label("OPTIONS")
+                </th>
+            }
             <th></th>
         </tr>
     </thead>
