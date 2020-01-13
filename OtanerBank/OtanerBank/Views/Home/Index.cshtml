@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.saldo)
                 </td>
                 <td>
-                    | @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    | @Html.ActionLink("Edit", "Edit", new { CPF = item.CPF }) |
                     @Html.ActionLink("Details", "Details", new { CPF = item.CPF }) |
                 </td>
             </tr>
