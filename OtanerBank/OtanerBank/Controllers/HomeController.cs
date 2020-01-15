@@ -25,9 +25,6 @@ namespace OtanerBank.Controllers
                 string response = await http.GetStringAsync("https://localhost:44329/Clients");
                 List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
-                //string response = await client.GetStringAsync("https://localhost:44329/Clients");
-                //List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
-
                 return View(Clients.ToList());
             }
             catch (Exception e)

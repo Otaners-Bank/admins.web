@@ -43,12 +43,24 @@
     <div class="container body-content">
         @RenderBody()
         @{
-            if (ViewData["Title"].ToString() != "Details")
+            if (ViewData["Title"].ToString() != "Edit")
             {
-                <hr />
-                <footer>
-                    <p>&copy; 2020 - Otaner's Bank</p>
-                </footer>
+                if (ViewData["Title"].ToString() != "Details")
+                {
+                    <hr />
+                    <footer>
+                        <p>&copy; 2020 - Otaner's Bank</p>
+                    </footer>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr />
+                        <p>&copy; 2020 - Otaner's Bank</p>
+                    </div>
+                </div>
             }
         }
     </div>
