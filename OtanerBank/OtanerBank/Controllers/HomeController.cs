@@ -75,13 +75,13 @@ namespace OtanerBank.Controllers
             }
         }
 
-        public async Task<IActionResult> SaveUpdates(Client clientData)
+        public async Task<IActionResult> SaveUpdates(Client client)
         {
             try
             {
-                var jsonString = JsonConvert.SerializeObject(clientData); // Serializing object to put in the JsonObject
+                var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PutAsync("https://localhost:44329/Clients/" + clientData.CPF, httpContent);
+                var message = await http.PutAsync("https://localhost:44329/Clients/" + client.CPF, httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -92,11 +92,16 @@ namespace OtanerBank.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveRegister(Client client)
+        public async Task<IActionResult> SaveNewClient(Client client)
         {
             try
             {
-                return View("");
+                client.saldo = "R$ 0.0";
+                var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
+                var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                var message = await http.PostAsync("https://localhost:44329/Clients", httpContent);
+
+                return RedirectToAction("Index"); // and returns to the Home Page
             }
             catch (Exception e)
             {
