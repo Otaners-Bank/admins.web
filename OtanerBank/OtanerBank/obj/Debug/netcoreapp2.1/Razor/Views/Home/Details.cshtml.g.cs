@@ -114,7 +114,7 @@ using OtanerBank.Models;
             WriteLiteral("</h4>\r\n                                </div>\r\n                                <div class=\"modal-body\">\r\n                                    ");
             EndContext();
             BeginContext(1279, 4480, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4cb97a354ee9429cbe862b19298b2a19", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "50a87bec9d2d44c2b7267586b9d5a61c", async() => {
                 BeginContext(1285, 229, true);
                 WriteLiteral("\r\n\r\n                                        <div>\r\n                                            <dl class=\"dl-horizontal\">\r\n                                                <dt>\r\n                                                    ");
                 EndContext();
