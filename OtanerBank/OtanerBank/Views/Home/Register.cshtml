@@ -7,20 +7,35 @@
 <h2>Register</h2>
 
 <hr />
-<div class="row">
+<div class="row col-md-pull-12">
     <div class="col-md-4">
         @using (Html.BeginForm("SaveNewClient", "Home", FormMethod.Post, new { }))
         {
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="conta" class="control-label"></label>
-                <input asp-for="conta" class="form-control" autofocus autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
-                <span asp-validation-for="conta" class="text-danger"></span>
+
+                <label asp-for="CPF" class="control-label"></label>
+
+                <br />
+
+                <div class="col-md-8">
+                    <input asp-for="CPF" class="form-control col-lg-12" autofocus onblur="ValidarCPF()" maxlength="14" autocomplete="off" id="txtCPF" placeholder="Example: 12345678910" required />
+                </div>
+                <div class="col-md-4">
+                    <input type="button" class="form-control col-lg-12 hidden" id="btnCPF" value="Edit CPF" />
+                </div>
+
+                <br />
+
+                <span asp-validation-for="CPF" id="errorCPF" class="text-danger"></span>
+
+                <br />
+
             </div>
             <div class="form-group">
-                <label asp-for="CPF" class="control-label"></label>
-                <input asp-for="CPF" class="form-control" onblur="ValidarCPF()" maxlength="14" autocomplete="off" id="txtCPF" placeholder="12345678910 - Digite apenas os números !" required />
-                <span asp-validation-for="CPF" id="errorCPF" class="text-danger"></span>
+                <label asp-for="conta" class="control-label"></label>
+                <input asp-for="conta" class="form-control" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
+                <span asp-validation-for="conta" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="nome" class="control-label"></label>
@@ -52,41 +67,73 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <script type="text/javascript">
 
     var txtCPF = document.getElementById('txtCPF');
+    var btnCPF = document.getElementById('btnCPF');
 
     function ValidarCPF() {
 
         if (!isNaN(txtCPF.value)) {
-            if (('' + txtCPF.value).length == 11) {
-                var CPF = txtCPF.value.substring(0, 3);
-                CPF += '.';
-                var CPF = CPF + txtCPF.value.substring(3, 6);
-                CPF += '.';
-                var CPF = CPF + txtCPF.value.substring(6, 9);
-                CPF += '-';
-                var CPF = CPF + txtCPF.value.substring(9, 11);
 
-                txtCPF.value = CPF;
-                txtCPF.style.borderColor = "#00FF00"; // set the Name field the green color
-                txtCPF.title = "CPF is valid !";
-                
-
-            } else if (('' + txtCPF.value).length < 11) {
-                txtCPF.focus();
-                txtCPF.title = "Something is too short here !";
-                txtCPF.style.borderColor = "#FF0000"; // set the Name field the red color
-            } else {
-                txtCPF.focus();
-                txtCPF.title = "Something is too large here !";
-                txtCPF.style.borderColor = "#FF0000"; // set the Name field the red color
+            if ((txtCPF.value + '').length == 11) {
+                setChars();
+            } else if ((txtCPF.value + '').length < 11) {
+                setError('CPF too short !');
+            } else if ((txtCPF.value + '').length > 11) {
+                setError('CPF too long !');
             }
+
         } else {
-            txtCPF.focus();
-            txtCPF.title = "Something is not a number here !";
-            txtCPF.style.borderColor = "#FF0000"; // set the Name field the red color
+
+            if (txtCPF.style.borderColor == "#FF0000") {
+                setError("Type only numbers !");
+            }
+
         }
 
     }
+
+    function setError() {
+        txtCPF.focus();
+        txtCPF.style.borderColor = "#FF0000"; // set the Name field the red color
+        txtCPF.title = arguments[0];
+    }
+
+    function setSucess() {
+        txtCPF.value = arguments[0];
+        txtCPF.style.borderColor = "#00FF00"; // set the Name field the green color
+        txtCPF.title = arguments[1];
+        btnCPF.classList.remove('hidden');
+        txtCPF.readOnly = true;
+    }
+
+    function setNull() {
+        txtCPF.focus();
+        txtCPF.style.borderColor = "#FFFFFF"; // set the Name field the red color
+        txtCPF.title = "";
+    }
+
+    function setChars() {
+        var CPF = txtCPF.value.substring(0, 3);
+        CPF += '.';
+        var CPF = CPF + txtCPF.value.substring(3, 6);
+        CPF += '.';
+        var CPF = CPF + txtCPF.value.substring(6, 9);
+        CPF += '-';
+        var CPF = CPF + txtCPF.value.substring(9, 11);
+
+        setSucess(CPF, "CPF valid");
+    }
+
+    $("#btnCPF").click(function () {
+        setNull();
+        txtCPF.readOnly = false;
+        txtCPF.value = "";
+        btnCPF.classList.add('hidden');
+    });
+
+
 </script>
