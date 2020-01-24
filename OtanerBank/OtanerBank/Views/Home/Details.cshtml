@@ -43,7 +43,7 @@
                                     <button id="btnDimiss" type="button" class="close">
                                         ×
                                     </button>
-                                    <h4>@Model.nome</h4>
+                                    <h4>@Model.NAME</h4>
                                 </div>
                                 <div class="modal-body">
                                     <form>
@@ -57,10 +57,10 @@
                                                     @Html.DisplayFor(model => model.id)
                                                 </dd>
                                                 <dt>
-                                                    @Html.DisplayNameFor(model => model.conta)
+                                                    @Html.DisplayNameFor(model => model.ACCOUNT)
                                                 </dt>
                                                 <dd>
-                                                    @Html.DisplayFor(model => model.conta)
+                                                    @Html.DisplayFor(model => model.ACCOUNT)
                                                 </dd>
                                                 <dt>
                                                     @Html.DisplayNameFor(model => model.CPF)
@@ -69,44 +69,44 @@
                                                     @Html.DisplayFor(model => model.CPF)
                                                 </dd>
                                                 <dt>
-                                                    @Html.DisplayNameFor(model => model.saldo)
+                                                    @Html.DisplayNameFor(model => model.BALANCE)
                                                 </dt>
                                                 <dd>
-                                                    @Html.DisplayFor(model => model.saldo)
+                                                    @Html.DisplayFor(model => model.BALANCE)
                                                 </dd>
 
                                                 @{
-                                                    if (Model.ultimoAcesso != null && Model.rendaGerada != null)
+                                                    if (Model.LAST_ACCESS != null && Model.BALANCE_EARNED != null)
                                                     {
                                                         <dt>
-                                                            @Html.DisplayNameFor(model => model.ultimoAcesso)
+                                                            @Html.DisplayNameFor(model => model.LAST_ACCESS)
                                                         </dt>
                                                         <dd>
-                                                            @Html.DisplayFor(model => model.ultimoAcesso)
+                                                            @Html.DisplayFor(model => model.LAST_ACCESS)
                                                         </dd>
                                                         <dt>
-                                                            @Html.DisplayNameFor(model => model.rendaGerada)
+                                                            @Html.DisplayNameFor(model => model.BALANCE_EARNED)
                                                         </dt>
                                                         <dd>
-                                                            @Html.DisplayFor(model => model.rendaGerada)
+                                                            @Html.DisplayFor(model => model.BALANCE_EARNED)
                                                         </dd>
                                                     }
                                                 }
 
                                                 @{
-                                                    if (Model.nomeGerenteResponsavel != null && Model.nomeGerenteResponsavel != null)
+                                                    if (Model.MANAGER_NAME != null && Model.MANAGER_EMAIL != null)
                                                     {
                                                         <dt>
-                                                            @Html.DisplayNameFor(model => model.nomeGerenteResponsavel)
+                                                            @Html.DisplayNameFor(model => model.MANAGER_NAME)
                                                         </dt>
                                                         <dd>
-                                                            @Html.DisplayFor(model => model.nomeGerenteResponsavel)
+                                                            @Html.DisplayFor(model => model.MANAGER_NAME)
                                                         </dd>
                                                         <dt>
-                                                            @Html.DisplayNameFor(model => model.emailGerenteResponsavel)
+                                                            @Html.DisplayNameFor(model => model.MANAGER_EMAIL)
                                                         </dt>
                                                         <dd>
-                                                            @Html.DisplayFor(model => model.emailGerenteResponsavel)
+                                                            @Html.DisplayFor(model => model.MANAGER_EMAIL)
                                                         </dd>
                                                     }
                                                 }

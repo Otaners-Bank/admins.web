@@ -34,24 +34,24 @@
 
             </div>
             <div class="form-group">
-                <label asp-for="conta" class="control-label"></label>
-                <input asp-for="conta" id="txtConta" class="form-control" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
-                <span asp-validation-for="conta" class="text-danger"></span>
+                <label asp-for="ACCOUNT" class="control-label"></label>
+                <input asp-for="ACCOUNT" id="txtConta" class="form-control" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
+                <span asp-validation-for="ACCOUNT" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="nome" class="control-label"></label>
-                <input asp-for="nome" id="txtNome" class="form-control" autocomplete="off" inputmode="latin-name" required maxlength="30" placeholder="How we will call the client" />
-                <span asp-validation-for="nome" class="text-danger"></span>
+                <label asp-for="NAME" class="control-label"></label>
+                <input asp-for="NAME" id="txtNome" class="form-control" autocomplete="off" inputmode="latin-name" required maxlength="30" placeholder="How we will call the client" />
+                <span asp-validation-for="NAME" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" id="txtEmail" class="form-control" autocomplete="off" inputmode="email" maxlength="30" placeholder="How we can contact the client" required />
-                <span asp-validation-for="email" class="text-danger"></span>
+                <label asp-for="EMAIL" class="control-label"></label>
+                <input asp-for="EMAIL" id="txtEmail" class="form-control" autocomplete="off" inputmode="email" maxlength="30" placeholder="How we can contact the client" required />
+                <span asp-validation-for="EMAIL" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="senha" class="control-label"></label>
-                <input asp-for="senha" id="txtSenha" class="form-control" autocomplete="off" inputmode="numeric" maxlength="4" placeholder="The account password for access later" required />
-                <span asp-validation-for="senha" class="text-danger"></span>
+                <label asp-for="PASSWORD" class="control-label"></label>
+                <input asp-for="PASSWORD" id="txtSenha" class="form-control" autocomplete="off" inputmode="numeric" maxlength="4" placeholder="The account password for access later" required />
+                <span asp-validation-for="PASSWORD" class="text-danger"></span>
             </div>
             <!--End of basic inputs-->
 
@@ -71,25 +71,25 @@
 
 
             <div class="form-group" id="formSpecial1">
-                <label asp-for="nomeGerenteResponsavel" class="control-label"></label>
-                <input asp-for="nomeGerenteResponsavel" id="txtNomeGerente" class="form-control" autocomplete="off" inputmode="latin-name" maxlength="30" placeholder="Name of client manager" />
-                <span asp-validation-for="nomeGerenteResponsavel" class="text-danger"></span>
+                <label asp-for="MANAGER_NAME" class="control-label"></label>
+                <input asp-for="MANAGER_NAME" id="txtNomeGerente" class="form-control" autocomplete="off" inputmode="latin-name" maxlength="30" placeholder="Name of client manager" />
+                <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
             </div>
             <div class="form-group" id="formSpecial2">
-                <label asp-for="emailGerenteResponsavel" class="control-label"></label>
-                <input asp-for="emailGerenteResponsavel" id="txtEmailGerente" class="form-control" autocomplete="off" inputmode="email" maxlength="30" placeholder="E-mail of client manager" />
-                <span asp-validation-for="emailGerenteResponsavel" class="text-danger"></span>
+                <label asp-for="MANAGER_EMAIL" class="control-label"></label>
+                <input asp-for="MANAGER_EMAIL" id="txtEmailGerente" class="form-control" autocomplete="off" inputmode="email" maxlength="30" placeholder="E-mail of client manager" />
+                <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
             </div>
 
             <div class="form-group" id="formSaving1">
-                <label asp-for="ultimoAcesso" class="control-label"></label>
-                <input asp-for="ultimoAcesso" id="txtUltimoAcesso" class="form-control" autocomplete="off" placeholder="Last client access in account" />
-                <span asp-validation-for="ultimoAcesso" class="text-danger"></span>
+                <label asp-for="LAST_ACCESS" class="control-label"></label>
+                <input asp-for="LAST_ACCESS" id="txtUltimoAcesso" class="form-control" autocomplete="off" placeholder="Last client access in account" />
+                <span asp-validation-for="LAST_ACCESS" class="text-danger"></span>
             </div>
             <div class="form-group" id="formSaving2">
-                <label asp-for="rendaGerada" class="control-label"></label>
-                <input asp-for="rendaGerada" id="txtRendaGerada" class="form-control" autocomplete="off" placeholder="How much the client already earned" />
-                <span asp-validation-for="rendaGerada" class="text-danger"></span>
+                <label asp-for="BALANCE_EARNED" class="control-label"></label>
+                <input asp-for="BALANCE_EARNED" id="txtRendaGerada" class="form-control" autocomplete="off" placeholder="How much the client already earned" />
+                <span asp-validation-for="BALANCE_EARNED" class="text-danger"></span>
             </div>
             <!--End of Account Type-->
 

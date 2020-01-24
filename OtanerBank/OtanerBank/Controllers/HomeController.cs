@@ -27,7 +27,7 @@ namespace OtanerBank.Controllers
 
                 return View(Clients.ToList());
             }
-            catch (Exception e)
+            catch
             {
                 return RedirectToAction("Error");
             }
@@ -39,7 +39,7 @@ namespace OtanerBank.Controllers
             {
                 return View();
             }
-            catch (Exception e)
+            catch
             {
                 return RedirectToAction("Error");
             }
@@ -54,7 +54,7 @@ namespace OtanerBank.Controllers
 
                 return View(client);
             }
-            catch (Exception e)
+            catch
             {
                 return RedirectToAction("Error");
             }
@@ -69,7 +69,7 @@ namespace OtanerBank.Controllers
 
                 return View(client);
             }
-            catch (Exception e)
+            catch
             {
                 return RedirectToAction("Error");
             }
@@ -85,7 +85,7 @@ namespace OtanerBank.Controllers
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
-            catch (Exception e)
+            catch
             {
                 return RedirectToAction("Error");
             }
@@ -96,14 +96,14 @@ namespace OtanerBank.Controllers
         {
             try
             {
-                client.saldo = "R$ 0.0";
+                client.BALANCE = "R$ 0.0";
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 var message = await http.PostAsync("https://localhost:44329/Clients", httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
-            catch (Exception e)
+            catch
             {
                 return RedirectToAction("Error");
             }

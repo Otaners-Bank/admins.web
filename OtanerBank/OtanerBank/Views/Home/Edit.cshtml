@@ -31,14 +31,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <label asp-for="saldo" class="control-label"></label>
-                <input id="saldo" asp-for="saldo" readonly class="form-control" />
-                <span asp-validation-for="saldo" class="text-danger"></span>
+                <label asp-for="BALANCE" class="control-label"></label>
+                <input id="saldo" asp-for="BALANCE" readonly class="form-control" />
+                <span asp-validation-for="BALANCE" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <label asp-for="conta" class="control-label"></label>
-                <input id="conta" asp-for="conta" class="form-control" />
-                <span asp-validation-for="conta" class="text-danger"></span>
+                <label asp-for="ACCOUNT" class="control-label"></label>
+                <input id="conta" asp-for="ACCOUNT" class="form-control" />
+                <span asp-validation-for="ACCOUNT" class="text-danger"></span>
             </div>
         </div>
 
@@ -46,45 +46,45 @@
 
         <div class="row">
             <div class="col-md-12">
-                <label asp-for="nome" class="control-label"></label>
-                <input id="nome" asp-for="nome" class="form-control" />
-                <span asp-validation-for="nome" class="text-danger"></span>
+                <label asp-for="NAME" class="control-label"></label>
+                <input id="nome" asp-for="NAME" class="form-control" />
+                <span asp-validation-for="NAME" class="text-danger"></span>
             </div>
         </div>
 
-        if (Model.ultimoAcesso != null && Model.rendaGerada != null)
+        if (Model.LAST_ACCESS != null && Model.BALANCE_EARNED != null)
         {
             <br />
 
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="ultimoAcesso" class="control-label"></label>
-                    <input id="ultimoAcesso" asp-for="ultimoAcesso" class="form-control" />
-                    <span asp-validation-for="ultimoAcesso" class="text-danger"></span>
+                    <label asp-for="LAST_ACCESS" class="control-label"></label>
+                    <input id="ultimoAcesso" asp-for="LAST_ACCESS" class="form-control" />
+                    <span asp-validation-for="LAST_ACCESS" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
-                    <label asp-for="rendaGerada" class="control-label"></label>
-                    <input id="rendaGerada" asp-for="rendaGerada" class="form-control" />
-                    <span asp-validation-for="rendaGerada" class="text-danger"></span>
+                    <label asp-for="BALANCE_EARNED" class="control-label"></label>
+                    <input id="rendaGerada" asp-for="BALANCE_EARNED" class="form-control" />
+                    <span asp-validation-for="BALANCE_EARNED" class="text-danger"></span>
                 </div>
             </div>
         }
 
-        if (Model.nomeGerenteResponsavel != null && Model.emailGerenteResponsavel != null)
+        if (Model.MANAGER_NAME != null && Model.MANAGER_EMAIL != null)
         {
 
             <br />
 
             <div class="row">
                 <div class="col-md-6">
-                    <label asp-for="nomeGerenteResponsavel" class="control-label"></label>
-                    <input id="nomeGerenteResponsavel" asp-for="nomeGerenteResponsavel" class="form-control" />
-                    <span asp-validation-for="nomeGerenteResponsavel" class="text-danger"></span>
+                    <label asp-for="MANAGER_NAME" class="control-label"></label>
+                    <input id="nomeGerenteResponsavel" asp-for="MANAGER_NAME" class="form-control" />
+                    <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
-                    <label asp-for="emailGerenteResponsavel" class="control-label"></label>
-                    <input id="emailGerenteResponsavel" asp-for="emailGerenteResponsavel" class="form-control" />
-                    <span asp-validation-for="emailGerenteResponsavel" class="text-danger"></span>
+                    <label asp-for="MANAGER_EMAIL" class="control-label"></label>
+                    <input id="emailGerenteResponsavel" asp-for="MANAGER_EMAIL" class="form-control" />
+                    <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
                 </div>
             </div>
         }

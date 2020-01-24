@@ -16,16 +16,16 @@
                     @Html.LabelFor(x => client.id)
                 </th>
                 <th>
-                    @Html.LabelFor(x => client.conta)
+                    @Html.LabelFor(x => client.ACCOUNT)
                 </th>
                 <th>
                     @Html.LabelFor(x => client.CPF)
                 </th>
                 <th>
-                    @Html.LabelFor(x => client.nome)
+                    @Html.LabelFor(x => client.NAME)
                 </th>
                 <th>
-                    @Html.LabelFor(x => client.saldo)
+                    @Html.LabelFor(x => client.BALANCE)
                 </th>
                 <th>
                     @Html.Label("OPTIONS")
@@ -42,16 +42,16 @@
                     @Html.DisplayFor(modelItem => item.id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.conta)
+                    @Html.DisplayFor(modelItem => item.ACCOUNT)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CPF)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.nome)
+                    @Html.DisplayFor(modelItem => item.NAME)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.saldo)
+                    @Html.DisplayFor(modelItem => item.BALANCE)
                 </td>
                 <td>
                     | @Html.ActionLink("Edit", "Edit", new { CPF = item.CPF }) |

@@ -13,25 +13,19 @@ namespace OtanerBank.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [DisplayName("CLIENT ID")]
         public string id { get; set; }
-        [DisplayName("ACCOUNT")]
-        public string conta { get; set; }
-        [DisplayName("CPF")]
+        public string ACCOUNT { get; set; }
         public string CPF { get; set; }
-        [DisplayName("NAME")]
-        public string nome { get; set; }
-        [DisplayName("EMAIL")]
-        public string email { get; set; }
-        [DisplayName("PASSWORD")]
-        public string senha { get; set; }
-        [DisplayName("BALANCE")]
-        public string saldo { get; set; }
+        public string NAME { get; set; }
+        public string EMAIL { get; set; }
+        public string PASSWORD { get; set; }
+        public string BALANCE { get; set; }
         [DisplayName("LAST ACCESS")]
-        public string ultimoAcesso { get; set; }
-        [DisplayName("BALANCE WARNED")]
-        public string rendaGerada { get; set; }
+        public string LAST_ACCESS { get; set; }
+        [DisplayName("BALANCE EARNED")]
+        public string BALANCE_EARNED { get; set; }
         [DisplayName("MANAGER NAME")]
-        public string nomeGerenteResponsavel { get; set; }
+        public string MANAGER_NAME { get; set; }
         [DisplayName("MANAGER EMAIL")]
-        public string emailGerenteResponsavel { get; set; }
+        public string MANAGER_EMAIL { get; set; }
     }
 }
