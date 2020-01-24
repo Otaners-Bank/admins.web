@@ -31,14 +31,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <label asp-for="BALANCE" class="control-label"></label>
-                <input id="saldo" asp-for="BALANCE" readonly class="form-control" />
-                <span asp-validation-for="BALANCE" class="text-danger"></span>
+                <label asp-for="ACCOUNT" class="control-label"></label>
+                <input id="ACCOUNT" asp-for="ACCOUNT" readonly class="form-control" />
+                <span asp-validation-for="ACCOUNT" class="text-danger"></span>
             </div>
             <div class="col-md-6">
-                <label asp-for="ACCOUNT" class="control-label"></label>
-                <input id="conta" asp-for="ACCOUNT" class="form-control" />
-                <span asp-validation-for="ACCOUNT" class="text-danger"></span>
+                <label asp-for="BALANCE" class="control-label"></label>
+                <input asp-for="BALANCE" readonly class="form-control" />
+                <span asp-validation-for="BALANCE" class="text-danger"></span>
             </div>
         </div>
 
@@ -47,49 +47,40 @@
         <div class="row">
             <div class="col-md-12">
                 <label asp-for="NAME" class="control-label"></label>
-                <input id="nome" asp-for="NAME" class="form-control" />
+                <input asp-for="NAME" required class="form-control" />
                 <span asp-validation-for="NAME" class="text-danger"></span>
             </div>
         </div>
 
-        if (Model.LAST_ACCESS != null && Model.BALANCE_EARNED != null)
-        {
-            <br />
+        <br />
 
-            <div class="row">
-                <div class="col-md-6">
-                    <label asp-for="LAST_ACCESS" class="control-label"></label>
-                    <input id="ultimoAcesso" asp-for="LAST_ACCESS" class="form-control" />
-                    <span asp-validation-for="LAST_ACCESS" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="BALANCE_EARNED" class="control-label"></label>
-                    <input id="rendaGerada" asp-for="BALANCE_EARNED" class="form-control" />
-                    <span asp-validation-for="BALANCE_EARNED" class="text-danger"></span>
-                </div>
+        <div class="row">
+            <div class="col-md-6" id="formSaving1">
+                <label asp-for="LAST_ACCESS" class="control-label"></label>
+                <input asp-for="LAST_ACCESS" class="form-control" />
+                <span asp-validation-for="LAST_ACCESS" class="text-danger"></span>
             </div>
-        }
-
-        if (Model.MANAGER_NAME != null && Model.MANAGER_EMAIL != null)
-        {
-
-            <br />
-
-            <div class="row">
-                <div class="col-md-6">
-                    <label asp-for="MANAGER_NAME" class="control-label"></label>
-                    <input id="nomeGerenteResponsavel" asp-for="MANAGER_NAME" class="form-control" />
-                    <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="MANAGER_EMAIL" class="control-label"></label>
-                    <input id="emailGerenteResponsavel" asp-for="MANAGER_EMAIL" class="form-control" />
-                    <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
-                </div>
+            <div class="col-md-6" id="formSaving2">
+                <label asp-for="BALANCE_EARNED" class="control-label"></label>
+                <input asp-for="BALANCE_EARNED" class="form-control" />
+                <span asp-validation-for="BALANCE_EARNED" class="text-danger"></span>
             </div>
-        }
+        </div>
 
+        <div class="row">
+            <div class="col-md-6" id="formSpecial1">
+                <label asp-for="MANAGER_NAME" class="control-label"></label>
+                <input asp-for="MANAGER_NAME" class="form-control" />
+                <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
+            </div>
+            <div class="col-md-6" id="formSpecial2">
+                <label asp-for="MANAGER_EMAIL" class="control-label"></label>
+                <input asp-for="MANAGER_EMAIL" class="form-control" />
+                <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
+            </div>
+        </div>
 
+        <br />
         <br />
         <br />
         <input type="submit" value="Save" class="btn btn-default" />
@@ -105,3 +96,35 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        var AC = '' + document.getElementById('ACCOUNT').value;
+
+        if (AC.endsWith('-3')) {
+            Disable_formSaving();
+        } else if (AC.endsWith('-2')) {
+            Disable_formSpecial();
+        } else {
+            Disable_formSaving();
+            Disable_formSpecial();
+        }
+
+    });
+
+    function Disable_formSaving() {
+        document.getElementById('formSaving1').hidden = true;
+        document.getElementById('formSaving2').hidden = true;
+    }
+
+    function Disable_formSpecial() {
+        document.getElementById('formSpecial1').hidden = true;
+        document.getElementById('formSpecial2').hidden = true;
+    }
+
+</script>

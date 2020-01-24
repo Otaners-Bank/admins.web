@@ -76,7 +76,7 @@
                                                 </dd>
 
                                                 @{
-                                                    if (Model.LAST_ACCESS != null && Model.BALANCE_EARNED != null)
+                                                    if (Model.ACCOUNT.EndsWith("-2"))
                                                     {
                                                         <dt>
                                                             @Html.DisplayNameFor(model => model.LAST_ACCESS)
@@ -94,7 +94,7 @@
                                                 }
 
                                                 @{
-                                                    if (Model.MANAGER_NAME != null && Model.MANAGER_EMAIL != null)
+                                                    if (Model.ACCOUNT.EndsWith("-3"))
                                                     {
                                                         <dt>
                                                             @Html.DisplayNameFor(model => model.MANAGER_NAME)

@@ -26,6 +26,7 @@ namespace OtanerBank.Controllers
                 List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
                 return View(Clients.ToList());
+
             }
             catch
             {
@@ -79,6 +80,22 @@ namespace OtanerBank.Controllers
         {
             try
             {
+                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + client.CPF);
+                Client oldClientInformation = JsonConvert.DeserializeObject<Client>(response);
+
+                client.PASSWORD = oldClientInformation.PASSWORD;
+                client.EMAIL = oldClientInformation.EMAIL;
+
+                if (client.MANAGER_NAME == null && client.MANAGER_EMAIL == null)
+                {
+                    client.MANAGER_NAME = ""; client.MANAGER_EMAIL = "";
+                }
+
+                if (client.LAST_ACCESS == null && client.BALANCE_EARNED == null)
+                {
+                    client.LAST_ACCESS = ""; client.BALANCE_EARNED = "";
+                }
+
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 var message = await http.PutAsync("https://localhost:44329/Clients/" + client.CPF, httpContent);
@@ -97,6 +114,17 @@ namespace OtanerBank.Controllers
             try
             {
                 client.BALANCE = "R$ 0.0";
+
+                if (client.MANAGER_NAME == null && client.MANAGER_EMAIL == null)
+                {
+                    client.MANAGER_NAME = ""; client.MANAGER_EMAIL = "";
+                }
+
+                if (client.LAST_ACCESS == null && client.BALANCE_EARNED == null)
+                {
+                    client.LAST_ACCESS = ""; client.BALANCE_EARNED = "";
+                }
+
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 var message = await http.PostAsync("https://localhost:44329/Clients", httpContent);
