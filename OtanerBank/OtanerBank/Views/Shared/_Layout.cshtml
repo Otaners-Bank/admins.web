@@ -18,24 +18,56 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Otaner's Bank</a>
+
+        @if (ViewData["CurrentAdminName"] != null)
+        {
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Admin" asp-action="Index" class="navbar-brand">Otaner's Bank - Admin</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Admin" asp-action="Register">Register Client</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <form method="post" action="Admin/Logout" class="nav navbar-nav">
+                                <a id="lblLogout" onclick="this.parentNode.submit()" class="navbar-brand">@ViewData["CurrentAdminName"] - Log out</a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Register">Register Client</a></li>
-                    <!--<li><a asp-area="" asp-controller="Home" asp-action="Register">Profile</a></li>-->
-                    <!--<li><a asp-area="" asp-controller="Home" asp-action="Register">Log off</a></li>-->
-                </ul>
+        }
+        else
+        {
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Otaner's Bank - Home Page</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Login">Log in</a></li>
+                    </ul>
+
+                </div>
             </div>
-        </div>
+
+        }
     </nav>
 
     <partial name="_CookieConsentPartial" />
@@ -89,3 +121,7 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script type="text/javascript">
+    document.getElementById('lblLogout').style.cursor = "pointer";
+</script>

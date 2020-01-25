@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nancy.Json;
 using Newtonsoft.Json;
@@ -16,131 +17,69 @@ namespace OtanerBank.Controllers
 {
     public class HomeController : Controller
     {
-        static HttpClient http = new HttpClient(); // to call the api later
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            try
+            if (authorized())
             {
-                string response = await http.GetStringAsync("https://localhost:44329/Clients");
-                List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
-
-                return View(Clients.ToList());
-
+                return RedirectToAction("Index", "Admin");
             }
-            catch
-            {
-                return RedirectToAction("Error");
-            }
-        }
-
-        public IActionResult Register()
-        {
-            try
+            else
             {
                 return View();
             }
-            catch
-            {
-                return RedirectToAction("Error");
-            }
         }
 
-        public async Task<IActionResult> Details(string CPF)
+        public IActionResult Login()
         {
-            try
+            if (authorized())
             {
-                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + CPF);
-                Client client = JsonConvert.DeserializeObject<Client>(response);
-
-                return View(client);
+                return RedirectToAction("Index", "Admin");
             }
-            catch
+            else
             {
-                return RedirectToAction("Error");
-            }
-        }
-
-        public async Task<IActionResult> Edit(string CPF)
-        {
-            try
-            {
-                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + CPF);
-                Client client = JsonConvert.DeserializeObject<Client>(response);
-
-                return View(client);
-            }
-            catch
-            {
-                return RedirectToAction("Error");
-            }
-        }
-
-        public async Task<IActionResult> SaveUpdates(Client client)
-        {
-            try
-            {
-                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + client.CPF);
-                Client oldClientInformation = JsonConvert.DeserializeObject<Client>(response);
-
-                client.PASSWORD = oldClientInformation.PASSWORD;
-                client.EMAIL = oldClientInformation.EMAIL;
-
-                if (client.MANAGER_NAME == null && client.MANAGER_EMAIL == null)
-                {
-                    client.MANAGER_NAME = ""; client.MANAGER_EMAIL = "";
-                }
-
-                if (client.LAST_ACCESS == null && client.BALANCE_EARNED == null)
-                {
-                    client.LAST_ACCESS = ""; client.BALANCE_EARNED = "";
-                }
-
-                var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
-                var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PutAsync("https://localhost:44329/Clients/" + client.CPF, httpContent);
-
-                return RedirectToAction("Index"); // and returns to the Home Page
-            }
-            catch
-            {
-                return RedirectToAction("Error");
+                return View();
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveNewClient(Client client)
+        public ActionResult Login(string email, string password)
         {
-            try
+            Admin adm = new Admin
             {
-                client.BALANCE = "R$ 0.0";
+                EMAIL = "thaleslimadejesus@gmail.com",
+                PASSWORD = "123",
+                NAME = "Thales Lima"
+            };
 
-                if (client.MANAGER_NAME == null && client.MANAGER_EMAIL == null)
-                {
-                    client.MANAGER_NAME = ""; client.MANAGER_EMAIL = "";
-                }
+            if (email == "thales" && password == "123")
+            {
+                adm.PASSWORD = null;
 
-                if (client.LAST_ACCESS == null && client.BALANCE_EARNED == null)
-                {
-                    client.LAST_ACCESS = ""; client.BALANCE_EARNED = "";
-                }
+                var admJson = JsonConvert.SerializeObject(adm);
+                HttpContext.Session.SetString("AdminLogged", admJson);
 
-                var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
-                var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PostAsync("https://localhost:44329/Clients", httpContent);
-
-                return RedirectToAction("Index"); // and returns to the Home Page
+                return RedirectToAction("Index", "Admin");
             }
-            catch
+            else
             {
-                return RedirectToAction("Error");
+                ViewData["ErrorLoginMessage"] = "Something went wrong, please try again";
+                return View();
             }
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        private bool authorized()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (HttpContext.Session.GetString("AdminLogged") == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
         }
+
     }
 }

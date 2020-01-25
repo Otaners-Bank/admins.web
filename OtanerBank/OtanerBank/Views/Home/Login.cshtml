@@ -1,0 +1,66 @@
+﻿@model OtanerBank.Models.Admin
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<style>
+    .center {
+        text-align: center;
+    }
+
+    .msgLogin {
+        text-align: center;
+        color: darkred;
+    }
+</style>
+
+<br />
+<br />
+
+<div class="row">
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { }))
+    {
+        <div class="center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="EMAIL" class="control-label"></label>
+                <input asp-for="EMAIL" class="form-control" autocomplete="off" maxlength="30" placeholder="E-mail account" required />
+                <span asp-validation-for="EMAIL" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <div class="center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="PASSWORD" class="control-label"></label>
+                <input asp-for="PASSWORD" class="form-control" autocomplete="off" type="password" maxlength="20" placeholder="Password" required />
+                <span asp-validation-for="PASSWORD" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <div class="center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <input type="submit" class="form-control" value="Login" />
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        if (@ViewData["ErrorLoginMessage"] != null)
+        {
+            <div class="center col-md-12">
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                    <label class="control-label msgLogin">@ViewData["ErrorLoginMessage"]</label>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        }
+
+    }
+</div>
+
+<br />
+<br />

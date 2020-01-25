@@ -1,7 +1,7 @@
 ﻿@model OtanerBank.Models.Client
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Register Client";
 }
 
 <h2>Register</h2>
@@ -9,7 +9,7 @@
 <hr />
 <div class="row col-md-pull-12">
     <div id="formClient" class="col-md-4">
-        @using (Html.BeginForm("SaveNewClient", "Home", FormMethod.Post, new { }))
+        @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { }))
         {
             <!--Basic inputs-->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

@@ -1,0 +1,73 @@
+﻿@model List<OtanerBank.Models.Client>
+
+@{
+    ViewData["Title"] = "Clients List";
+}
+
+<br />
+
+@if (Model.Count != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @{
+                    Client client = new Client();
+
+                    <th>
+                        @Html.LabelFor(x => client.id)
+                    </th>
+                    <th>
+                        @Html.LabelFor(x => client.ACCOUNT)
+                    </th>
+                    <th>
+                        @Html.LabelFor(x => client.CPF)
+                    </th>
+                    <th>
+                        @Html.LabelFor(x => client.NAME)
+                    </th>
+                    <th>
+                        @Html.LabelFor(x => client.BALANCE)
+                    </th>
+                    <th>
+                        @Html.Label("OPTIONS")
+                    </th>
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ACCOUNT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CPF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BALANCE)
+                    </td>
+                    <td>
+                        | @Html.ActionLink("Edit", "Edit", new { CPF = item.CPF }) |
+                        @Html.ActionLink("Details", "Details", new { CPF = item.CPF }) |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center">
+        @Html.Label("There is no clients :/") <br />
+        @Html.ActionLink("Register a new client now !", "Register", new { })
+    </div><br />
+}
