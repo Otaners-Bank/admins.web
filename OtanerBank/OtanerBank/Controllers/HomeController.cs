@@ -43,29 +43,39 @@ namespace OtanerBank.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string CPF, string PASSWORD)
         {
             Admin adm = new Admin
             {
-                EMAIL = "thaleslimadejesus@gmail.com",
-                PASSWORD = "123",
-                NAME = "Thales Lima"
+                CPF = CPF,
+                PASSWORD = PASSWORD
             };
 
-            if (email == "thales" && password == "123")
-            {
-                adm.PASSWORD = null;
+            HttpClient http = new HttpClient();
 
-                var admJson = JsonConvert.SerializeObject(adm);
+            var jsonString = JsonConvert.SerializeObject(adm);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var message = http.PostAsync("https://localhost:44329/Admins/Login", httpContent);
+
+            adm = null;
+
+            if (message.Result.IsSuccessStatusCode)
+            {
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/" + CPF);
+                Admin admin = JsonConvert.DeserializeObject<Admin>(response);
+
+                var admJson = JsonConvert.SerializeObject(admin);
                 HttpContext.Session.SetString("AdminLogged", admJson);
+                
 
                 return RedirectToAction("Index", "Admin");
             }
             else
             {
-                ViewData["ErrorLoginMessage"] = "Something went wrong, please try again";
+                ViewData["ErrorLoginMessage"] = message.Result.StatusCode;
                 return View();
             }
+
         }
 
         private bool authorized()

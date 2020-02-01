@@ -29,7 +29,7 @@ namespace OtanerBank.Controllers
                     return RedirectToAction("Login","Home");
                 }
 
-                string response = await http.GetStringAsync("https://localhost:44329/Clients");
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients");
                 List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
                 return View(Clients.ToList());
@@ -50,7 +50,7 @@ namespace OtanerBank.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
-                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/" + CPF);
                 Client client = JsonConvert.DeserializeObject<Client>(response);
 
                 return View(client);
@@ -70,7 +70,7 @@ namespace OtanerBank.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
-                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/" + CPF);
                 Client client = JsonConvert.DeserializeObject<Client>(response);
 
                 return View(client);
@@ -91,7 +91,7 @@ namespace OtanerBank.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
-                string response = await http.GetStringAsync("https://localhost:44329/Clients/" + client.CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/" + client.CPF);
                 Client oldClientInformation = JsonConvert.DeserializeObject<Client>(response);
 
                 client.PASSWORD = oldClientInformation.PASSWORD;
@@ -109,7 +109,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PutAsync("https://localhost:44329/Clients/" + client.CPF, httpContent);
+                var message = await http.PutAsync("https://localhost:44329/Admins/Clients/" + client.CPF, httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -160,7 +160,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PostAsync("https://localhost:44329/Clients", httpContent);
+                var message = await http.PostAsync("https://localhost:44329/Admins/Clients", httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -169,8 +169,7 @@ namespace OtanerBank.Controllers
                 return RedirectToAction("Error");
             }
         }
-
-        [HttpPost]
+       
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("AdminLogged");
