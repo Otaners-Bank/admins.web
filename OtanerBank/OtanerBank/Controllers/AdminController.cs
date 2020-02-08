@@ -20,13 +20,48 @@ namespace OtanerBank.Controllers
 
         static HttpClient http = new HttpClient(); // to call the api later
 
+        [HttpPost]
+        public async Task<bool> Profile(Admin admin)
+        {
+            if (unauthorized())
+            {
+                RedirectToAction("Login", "Home");
+            }
+
+            try
+            {
+                var jsonString = JsonConvert.SerializeObject(admin); // Serializing object to put in the JsonObject
+                var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                var message = await http.PutAsync("https://localhost:44329/Admins/" + ViewData["CurrentAdminCPF"], httpContent);
+
+
+                Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/" + admin.CPF);
+                Admin adm = JsonConvert.DeserializeObject<Admin>(response.Result);
+
+                ViewData["CurrentAdminId"] = admin.id;
+                ViewData["CurrentAdminCPF"] = admin.CPF;
+                ViewData["CurrentAdminName"] = adm.NAME;
+                ViewData["CurrentAdminEmail"] = adm.EMAIL;
+                ViewData["CurrentAdminPassword"] = adm.PASSWORD;
+
+                return true;
+
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
         public async Task<IActionResult> Index()
         {
             try
             {
                 if (unauthorized())
                 {
-                    return RedirectToAction("Login","Home");
+                    return RedirectToAction("Login", "Home");
                 }
 
                 string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients");
@@ -169,20 +204,28 @@ namespace OtanerBank.Controllers
                 return RedirectToAction("Error");
             }
         }
-       
+
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("AdminLogged");
             return RedirectToAction("Index", "Home");
         }
 
-        private bool unauthorized()
+        private bool unauthorized(bool updated = false)
         {
-            if(HttpContext.Session.GetString("AdminLogged") != null)
+            if (HttpContext.Session.GetString("AdminLogged") != null)
             {
                 Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
-                ViewData["CurrentAdminName"] = adm.NAME;
-                ViewData["CurrentAdmiEmail"] = adm.EMAIL;
+
+                Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/" + adm.CPF);
+                Admin admin = JsonConvert.DeserializeObject<Admin>(response.Result);
+
+                ViewData["CurrentAdminId"] = adm.id;
+                ViewData["CurrentAdminCPF"] = adm.CPF;
+                ViewData["CurrentAdminName"] = admin.NAME;
+                ViewData["CurrentAdminEmail"] = admin.EMAIL;
+                ViewData["CurrentAdminPassword"] = admin.PASSWORD;
+
                 return false;
             }
             else

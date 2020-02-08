@@ -55,12 +55,13 @@ namespace OtanerBank.Controllers
 
             var jsonString = JsonConvert.SerializeObject(adm);
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var message = http.PostAsync("https://localhost:44329/Admins/Login", httpContent);
+            HttpResponseMessage message = await http.PostAsync("https://localhost:44329/Admins/Login", httpContent);
 
             adm = null;
 
-            if (message.Result.IsSuccessStatusCode)
+            if (message.IsSuccessStatusCode)
             {
+                ViewData["ErrorLoginMessage"] = "";
                 string response = await http.GetStringAsync("https://localhost:44329/Admins/" + CPF);
                 Admin admin = JsonConvert.DeserializeObject<Admin>(response);
 
@@ -72,7 +73,21 @@ namespace OtanerBank.Controllers
             }
             else
             {
-                ViewData["ErrorLoginMessage"] = message.Result.StatusCode;
+                int statusCode = (int)message.StatusCode;
+
+                switch (statusCode)
+                {
+                    case 404:
+                        ViewData["ErrorLoginMessage"] = "Account not found";
+                        break;
+                    case 400:
+                        ViewData["ErrorLoginMessage"] = "Invalid credentials";
+                        break;
+                    default:
+                        ViewData["ErrorLoginMessage"] = "An error occurred";
+                        break;
+                }
+
                 return View();
             }
 

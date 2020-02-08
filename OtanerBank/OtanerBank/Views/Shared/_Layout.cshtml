@@ -1,5 +1,62 @@
 ﻿<!DOCTYPE html>
+
+<style>
+    .Profile {
+        cursor: pointer;
+    }
+
+    #divContent {
+        margin: 20px;
+        width: 500px;
+    }
+
+    .dropbtn {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #2980B9;
+        }
+
+    .dropdown {
+    }
+
+    .dropdown-content {
+        margin-left: -400px;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+
 <html>
+
+
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +74,7 @@
     </environment>
 </head>
 <body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
 
         @if (ViewData["CurrentAdminName"] != null)
@@ -37,8 +95,76 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <form method="post" action="Admin/Logout" class="nav navbar-nav">
-                                <a id="lblLogout" onclick="this.parentNode.submit()" class="navbar-brand">@ViewData["CurrentAdminName"] - Log out</a>
+                            <form onsubmit="alert('All info sent !')">
+                                <div class="dropdown">
+                                    <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
+                                    <div id="myDropdown" class="dropdown-content">
+                                        <div id="divContent">
+
+                                            <div>
+                                                <div class="row">
+
+                                                    <div class="col-md-11">
+                                                        <h4>Admin - @ViewData["CurrentAdminName"]</h4><br /><br />
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button onclick="HideDropDown();" type="button" class="close">
+                                                            ×
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-md-9">
+                                                        <label class="control-label">CPF</label>
+                                                        <input id="CPF" readonly class="form-control" autocomplete="off" value="@ViewData["CurrentAdminCPF"]" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col-md-3"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <label class="control-label">Name</label>
+                                                        <input id="NAME" class="form-control" autocomplete="off" value="@ViewData["CurrentAdminName"]" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col-md-3"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <label class="control-label">Email</label>
+                                                        <input id="EMAIL" class="form-control" autocomplete="off" value="@ViewData["CurrentAdminEmail"]" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col-md-3"></div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <label class="control-label">Password</label>
+                                                        <input id="PASSWORD" class="form-control" autocomplete="off" value="@ViewData["CurrentAdminPassword"]" />
+                                                        <span class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col-md-3"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <hr />
+                                                <div class="col-md-1">
+
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <button class="form-control" onclick="UpdateAdmin()">Save</button>
+                                                </div>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-3">
+                                                    <button class="form-control" asp-controller="Admin" asp-action="Logout">Logout</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </li>
                     </ul>
@@ -70,22 +196,14 @@
         }
     </nav>
 
+
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
         @RenderBody()
         @{
+
             if (ViewData["Title"].ToString() != "Edit")
-            {
-                if (ViewData["Title"].ToString() != "Details")
-                {
-                    <hr />
-                    <footer>
-                        <p>&copy; 2020 - Otaner's Bank</p>
-                    </footer>
-                }
-            }
-            else
             {
                 <div class="row">
                     <div class="col-md-12">
@@ -94,8 +212,31 @@
                     </div>
                 </div>
             }
+
+            else if (ViewData["Title"].ToString() != "Profile")
+            {
+                <div class="col-md-12">
+                    <hr />
+                    <p>&copy; 2020 - Otaner's Bank</p>
+                </div>
+            }
+
+            else if (ViewData["Title"].ToString() != "Details")
+            {
+
+            }
+
+            else
+            {
+                <hr />
+                <footer>
+                    <p>&copy; 2020 - Otaner's Bank</p>
+                </footer>
+            }
+
         }
     </div>
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -123,5 +264,81 @@
 </html>
 
 <script type="text/javascript">
-    document.getElementById('lblLogout').style.cursor = "pointer";
+
+    function UpdateAdmin() {
+
+        var CPF = document.getElementById('CPF').value;
+        var NAME = document.getElementById('NAME').value;
+        var EMAIL = document.getElementById('EMAIL').value;
+        var PASSWORD = document.getElementById('PASSWORD').value;
+
+
+        $.ajax({
+            type: "POST",
+            url: 'https://localhost:44397/Admin/Profile',
+            dataType: "json",
+            data: {
+                "cpf": "" + CPF + "",
+                "name": "" + NAME + "",
+                "email": "" + EMAIL + "",
+                "password": "" + PASSWORD + ""
+            },
+            success: (function (msg) {
+                if (msg == true) {
+                    // alert('Data sucessfuly updated');
+                }
+            }),
+            error: (function () {
+                alert('An error occurred, please try again later');
+            })
+        });
+
+
+
+    }
+
+    $(document).ready(function () {
+
+        /*var timeToEnd = 0;
+
+        var timer = setInterval(function () {
+            timeToEnd++;
+
+            console.log('' + timeToEnd);
+
+            if (timeToEnd == 5) {
+                clearInterval(timer);
+            }
+        }, 1000);*/
+
+        $("#btnProfile").click(function () {
+
+            $(function () {
+
+                document.getElementById("myDropdown").classList.toggle("show");
+
+            });
+
+        })
+
+        $("#btnDimissAdminInfoModal").click(function () {
+            $("#AdminInfoModal").modal('hide');
+        });
+
+
+    });
+
+
+    function HideDropDown() {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+        Location.reload();
+    }
+
 </script>
