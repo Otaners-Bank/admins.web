@@ -13159,11 +13159,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\projects\\vs\\management.web.otaner.bank\\OtanerBank\\OtanerBank\\OtanerBank.csproj",
+      "projectUniqueName": "C:\\projects\\OtanersBank\\WebAdmins\\master\\OtanerBank\\OtanerBank\\OtanerBank.csproj",
       "projectName": "OtanerBank",
-      "projectPath": "C:\\projects\\vs\\management.web.otaner.bank\\OtanerBank\\OtanerBank\\OtanerBank.csproj",
+      "projectPath": "C:\\projects\\OtanersBank\\WebAdmins\\master\\OtanerBank\\OtanerBank\\OtanerBank.csproj",
       "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\projects\\vs\\management.web.otaner.bank\\OtanerBank\\OtanerBank\\obj\\",
+      "outputPath": "C:\\projects\\OtanersBank\\WebAdmins\\master\\OtanerBank\\OtanerBank\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

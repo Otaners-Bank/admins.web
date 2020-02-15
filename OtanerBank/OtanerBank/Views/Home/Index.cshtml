@@ -1,18 +1,66 @@
-﻿
+﻿@model OtanerBank.Models.Admin
 @{
-    ViewData["Title"] = "Otaner's Bank";
+    ViewData["Title"] = "Otaner's Bank - Log in";
 }
 
 <style>
-    .center{
-        text-align:center;
+    .center {
+        text-align: center;
+    }
+
+    .msgLogin {
+        text-align: center;
+        color: darkred;
     }
 </style>
 
+<br />
+<br />
+
 <div class="row">
-    <div class="center">
-        <h3>Olá, esse é um sistema administrativo, e para poder utilizá-lo envie um e-mail para</h3>
-        <h4>thaleslimadejesus@gmail.com</h4>
-    </div>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { }))
+    {
+        <div class="center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="CPF" class="control-label"></label>
+                <input asp-for="CPF" class="form-control" autocomplete="off" maxlength="30" placeholder="Admin CPF" required />
+                <span asp-validation-for="CPF" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <div class="center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="PASSWORD" class="control-label"></label>
+                <input asp-for="PASSWORD" class="form-control" autocomplete="off" type="password" maxlength="20" placeholder="Password" required />
+                <span asp-validation-for="PASSWORD" class="text-danger"></span>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <div class="center col-md-12">
+            <div class="col-md-4"></div>
+            <div class="form-group col-md-4">
+                <input type="submit" class="form-control" value="Login" />
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        if (@ViewData["ErrorLoginMessage"] != null)
+        {
+            <div class="center col-md-12">
+                <div class="col-md-4"></div>
+                <div class="form-group col-md-4">
+                    <label class="control-label msgLogin">@ViewData["ErrorLoginMessage"]</label>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        }
+
+    }
 </div>
 
+<br />
+<br />

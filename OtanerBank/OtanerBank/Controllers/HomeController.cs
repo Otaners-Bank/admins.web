@@ -30,7 +30,7 @@ namespace OtanerBank.Controllers
             }
         }
 
-        public IActionResult Login()
+        public IActionResult Signin()
         {
             if (authorized())
             {
@@ -88,7 +88,7 @@ namespace OtanerBank.Controllers
                         break;
                 }
 
-                return View();
+                return View("Index");
             }
 
         }
@@ -105,6 +105,18 @@ namespace OtanerBank.Controllers
             }
 
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            if (authorized())
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
 
     }
 }

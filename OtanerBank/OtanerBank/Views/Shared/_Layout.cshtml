@@ -27,7 +27,8 @@
     }
 
     .dropdown-content {
-        margin-left: -400px;
+        margin-top: 75%;
+        margin-left: -25%;
         display: none;
         position: absolute;
         background-color: #f1f1f1;
@@ -55,8 +56,6 @@
 
 <html>
 
-
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -73,6 +72,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
+
 <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -87,85 +87,78 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-area="" asp-controller="Admin" asp-action="Index" class="navbar-brand">Otaner's Bank - Admin</a>
+                    <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
+                    <form onsubmit="alert('All info sent !')">
+                        <div class="dropdown">
+                            <div id="myDropdown" class="dropdown-content">
+                                <div id="divContent">
+
+                                    <div>
+                                        <div class="row">
+
+                                            <div class="col-md-11">
+                                                <h4>@ViewData["CurrentAdminName"]</h4><br />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button onclick="HideDropDown();" type="button" class="close">
+                                                    ×
+                                                </button>
+                                            </div>
+
+                                            <div class="col-md-9">
+                                                <label class="control-label">CPF</label>
+                                                <input id="CPF" readonly class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminCPF"]" />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <label class="control-label">Name</label>
+                                                <input id="NAME" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminName"]" />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <label class="control-label">Email</label>
+                                                <input id="EMAIL" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminEmail"]" />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <label class="control-label">Password</label>
+                                                <input id="PASSWORD" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminPassword"]" />
+                                                <span class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <br />
+                                                <input type="submit" class="form-control" onclick="UpdateAdmin()" value="Save" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a></li>
                         <li><a asp-area="" asp-controller="Admin" asp-action="Register">Register Client</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <form onsubmit="alert('All info sent !')">
-                                <div class="dropdown">
-                                    <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
-                                    <div id="myDropdown" class="dropdown-content">
-                                        <div id="divContent">
-
-                                            <div>
-                                                <div class="row">
-
-                                                    <div class="col-md-11">
-                                                        <h4>Admin - @ViewData["CurrentAdminName"]</h4><br /><br />
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <button onclick="HideDropDown();" type="button" class="close">
-                                                            ×
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="col-md-9">
-                                                        <label class="control-label">CPF</label>
-                                                        <input id="CPF" readonly class="form-control" autocomplete="off" value="@ViewData["CurrentAdminCPF"]" />
-                                                        <span class="text-danger"></span>
-                                                    </div>
-                                                    <div class="col-md-3"></div>
-                                                </div>
-                                                <br />
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <label class="control-label">Name</label>
-                                                        <input id="NAME" class="form-control" autocomplete="off" value="@ViewData["CurrentAdminName"]" />
-                                                        <span class="text-danger"></span>
-                                                    </div>
-                                                    <div class="col-md-3"></div>
-                                                </div>
-                                                <br />
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <label class="control-label">Email</label>
-                                                        <input id="EMAIL" class="form-control" autocomplete="off" value="@ViewData["CurrentAdminEmail"]" />
-                                                        <span class="text-danger"></span>
-                                                    </div>
-                                                    <div class="col-md-3"></div>
-                                                </div>
-                                                <br />
-                                                <div class="row">
-                                                    <div class="col-md-9">
-                                                        <label class="control-label">Password</label>
-                                                        <input id="PASSWORD" class="form-control" autocomplete="off" value="@ViewData["CurrentAdminPassword"]" />
-                                                        <span class="text-danger"></span>
-                                                    </div>
-                                                    <div class="col-md-3"></div>
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <hr />
-                                                <div class="col-md-1">
-
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <button class="form-control" onclick="UpdateAdmin()">Save</button>
-                                                </div>
-                                                <div class="col-md-1"></div>
-                                                <div class="col-md-3">
-                                                    <button class="form-control" asp-controller="Admin" asp-action="Logout">Logout</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            <a asp-area="" asp-controller="Admin" asp-action="Logout">Log out</a>
                         </li>
                     </ul>
                 </div>
@@ -181,13 +174,21 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Otaner's Bank - Home Page</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Login">Log in</a></li>
+
+                        @if (ViewData["Title"].ToString() == "Otaner's Bank - Log in")
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Signin">Sign in</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Log in</a></li>
+                        }
+
                     </ul>
 
                 </div>
@@ -203,7 +204,7 @@
         @RenderBody()
         @{
 
-            if (ViewData["Title"].ToString() != "Edit")
+            if (ViewData["Title"].ToString() == "Edit")
             {
                 <div class="row">
                     <div class="col-md-12">
@@ -213,15 +214,7 @@
                 </div>
             }
 
-            else if (ViewData["Title"].ToString() != "Profile")
-            {
-                <div class="col-md-12">
-                    <hr />
-                    <p>&copy; 2020 - Otaner's Bank</p>
-                </div>
-            }
-
-            else if (ViewData["Title"].ToString() != "Details")
+            else if (ViewData["Title"].ToString() == "Client Details" || ViewData["Title"].ToString() == "Otaner's Bank - Log in" || ViewData["Title"].ToString() == "Otaner's Bank - Sign in")
             {
 
             }
