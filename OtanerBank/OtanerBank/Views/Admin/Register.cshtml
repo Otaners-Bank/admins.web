@@ -4,109 +4,148 @@
     ViewData["Title"] = "Register Client";
 }
 
-<h2>Register</h2>
+<div id="formClient" class="row">
+    @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { }))
+    {
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<hr />
-<div class="row col-md-pull-12">
-    <div id="formClient" class="col-md-4">
-        @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { }))
-        {
-            <!--Basic inputs-->
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+        <!--Account Type-->
+        <div class="form-group text-center">
 
-                <label asp-for="CPF" class="control-label"></label>
+            <h3>Account type:</h3>
 
-                <br />
+            <input type="checkbox" id="cSimple" checked="checked" class="form-group" />
+            <label for="cSimple">Simple account</label><br />
+            <input type="checkbox" id="cSaving" class="form-group" />
+            <label for="cPoupanca">Saving account</label><br />
+            <input type="checkbox" id="cSpecial" class="form-group" />
+            <label for="cEspecial">Special account</label><br />
 
-                <div class="col-md-8">
-                    <input asp-for="CPF" class="form-control col-lg-12" autofocus onblur="ValidarCPF()" maxlength="14" autocomplete="off" id="txtCPF" placeholder="Example: 12345678910" required />
-                </div>
-                <div class="col-md-4">
-                    <input type="button" class="form-control col-lg-12 hidden" id="btnCPF" value="Edit CPF" />
-                </div>
+        </div>
 
-                <br />
+        <!--Special Account inputs-->
+        <div class="form-group text-center">
 
-                <span asp-validation-for="CPF" id="errorCPF" class="text-danger"></span>
+            <label asp-for="CPF" class="control-label"></label>
 
-                <br />
+            <br />
+
+            <div class="col-md-2">
 
             </div>
-            <div class="form-group">
-                <label asp-for="ACCOUNT" class="control-label"></label>
-                <input asp-for="ACCOUNT" id="txtConta" class="form-control" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
+            <div class="col-md-6">
+                <input asp-for="CPF" class="form-control col-lg-12" onblur="ValidarCPF()" maxlength="14" autocomplete="off" id="txtCPF" placeholder="Example: 12345678910" required />
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="form-control col-lg-12 disabled" readonly id="btnCPF" value="Edit CPF" />
+            </div>
+            <div class="col-md-2">
+
+            </div>
+
+
+            <br />
+
+            <span asp-validation-for="CPF" id="errorCPF" class="text-danger"></span>
+
+            <br />
+
+        </div>
+        <div class="form-group text-center">
+
+            <label asp-for="ACCOUNT" class="control-label"></label>
+            <br />
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input asp-for="ACCOUNT" id="txtConta" class="form-control text-center" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
                 <span asp-validation-for="ACCOUNT" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="NAME" class="control-label"></label>
-                <input asp-for="NAME" id="txtNome" class="form-control" autocomplete="off" inputmode="latin-name" required maxlength="30" placeholder="How we will call the client" />
+            <div class="col-md-2"></div>
+            <br /><br />
+        </div>
+        <div class="form-group text-center">
+
+            <label asp-for="NAME" class="control-label"></label>
+            <br />
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input asp-for="NAME" id="txtNome" class="form-control text-center" autocomplete="off" inputmode="latin-name" required maxlength="30" placeholder="How we will call the client" />
                 <span asp-validation-for="NAME" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EMAIL" class="control-label"></label>
-                <input asp-for="EMAIL" id="txtEmail" class="form-control" autocomplete="off" inputmode="email" maxlength="30" placeholder="How we can contact the client" required />
+            <div class="col-md-2"></div>
+            <br /><br />
+        </div>
+        <div class="form-group text-center">
+            <label asp-for="EMAIL" class="control-label"></label>
+            <br />
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input asp-for="EMAIL" id="txtEmail" class="form-control text-center" autocomplete="off" inputmode="email" maxlength="30" placeholder="How we can contact the client" required />
                 <span asp-validation-for="EMAIL" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PASSWORD" class="control-label"></label>
-                <input asp-for="PASSWORD" id="txtSenha" class="form-control" autocomplete="off" inputmode="numeric" maxlength="4" placeholder="The account password for access later" required />
+            <div class="col-md-2"></div>
+            <br /><br />
+        </div>
+        <div class="form-group text-center">
+            <label asp-for="PASSWORD" class="control-label"></label>
+            <br />
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input asp-for="PASSWORD" id="txtSenha" class="form-control text-center" autocomplete="off" inputmode="numeric" maxlength="4" placeholder="The account password for access later" required />
                 <span asp-validation-for="PASSWORD" class="text-danger"></span>
             </div>
-            <!--End of basic inputs-->
+            <div class="col-md-2"></div>
+            <br /><br />
+        </div>
+        <!--End of Simple Account inputs-->
+    
+        <!--Special Account inputs-->
+        <div class="form-group text-center" id="formSpecial1">
+            <label asp-for="MANAGER_NAME" class="control-label"></label>
+            <br />
 
-            <!--Account Type-->
-            <div class="form-group">
-
-                <br /><br />
-                <label class="control-label" style="font-size:25px">Account type (Don't select anyone to create a simple account):</label>
-                <br />
-
-                <input type="checkbox" id="cSaving" class="form-group" />
-                <label for="cPoupanca">Saving account</label><br />
-                <input type="checkbox" id="cSpecial" class="form-group" />
-                <label for="cEspecial">Special account</label><br />
-
-            </div>
-
-
-            <div class="form-group" id="formSpecial1">
-                <label asp-for="MANAGER_NAME" class="control-label"></label>
-                <input asp-for="MANAGER_NAME" id="txtNomeGerente" class="form-control" autocomplete="off" inputmode="latin-name" maxlength="30" placeholder="Name of client manager" />
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input asp-for="MANAGER_NAME" id="txtNomeGerente" class="form-control text-center" autocomplete="off" inputmode="latin-name" maxlength="30" placeholder="Name of client manager" />
                 <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
             </div>
-            <div class="form-group" id="formSpecial2">
-                <label asp-for="MANAGER_EMAIL" class="control-label"></label>
-                <input asp-for="MANAGER_EMAIL" id="txtEmailGerente" class="form-control" autocomplete="off" inputmode="email" maxlength="30" placeholder="E-mail of client manager" />
+            <div class="col-md-2"></div>
+            <br /><br />
+        </div>
+        <div class="form-group text-center" id="formSpecial2">
+            <label asp-for="MANAGER_EMAIL" class="control-label"></label>
+            <br />
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <input asp-for="MANAGER_EMAIL" id="txtEmailGerente" class="form-control text-center" autocomplete="off" inputmode="email" maxlength="30" placeholder="E-mail of client manager" />
                 <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
             </div>
+            <div class="col-md-2"></div>
+            <br /><br />
+        </div>
+        <!--End of Special Account inputs-->
 
-            <div class="form-group" id="formSaving1">
-                <label asp-for="LAST_ACCESS" class="control-label"></label>
-                <input asp-for="LAST_ACCESS" id="txtUltimoAcesso" class="form-control" autocomplete="off" placeholder="Last client access in account" />
-                <span asp-validation-for="LAST_ACCESS" class="text-danger"></span>
+        <!--Submit button-->
+        <div class="form-group text-center">
+            <br />
+
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <input type="submit" value="Save" class="form-control btn-default text-center" />
             </div>
-            <div class="form-group" id="formSaving2">
-                <label asp-for="BALANCE_EARNED" class="control-label"></label>
-                <input asp-for="BALANCE_EARNED" id="txtRendaGerada" class="form-control" autocomplete="off" placeholder="How much the client already earned" />
-                <span asp-validation-for="BALANCE_EARNED" class="text-danger"></span>
-            </div>
-            <!--End of Account Type-->
+            <div class="col-md-5"></div>
 
-            <!--Submit button-->
-            <div class="form-group">
-                <br />
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-            <!--End of submit button-->
-
-        }
-    </div>
-
+        </div>
+        <!--End of submit button-->
+    }
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -117,7 +156,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        Disable_formSaving();
+        // Disable_formSaving();
         Disable_formSpecial();
     });
 
@@ -130,6 +169,8 @@
                 && document.getElementById('cSpecial').checked == false
                 && document.getElementById('cSaving').checked == false) {
 
+            } else if (("" + document.getElementById('txtConta').value).endsWith("-1")
+                && document.getElementById('cSimple').checked == true) {
             } else if (("" + document.getElementById('txtConta').value).endsWith("-2")
                 && document.getElementById('cSaving').checked == true) {
 
@@ -138,7 +179,7 @@
 
             } else {
                 e.preventDefault();
-                alert('Simple accounts number must end with -1\nand have the checkbox checked\n' +
+                alert('Simple account number must end with -1\nand have the checkbox checked\n' +
                     '\nSaving account number must end with -2\nand have the checkbox checked\n' +
                     '\nSpecial account number must end with -3\nand have the checkbox checked\n');
             }
@@ -149,41 +190,35 @@
     });
 
     $("#cSpecial").click(function () {
-        if (document.getElementById('cSpecial').checked == false) {
-            Disable_formSpecial();
-        } else {
+        if (document.getElementById('cSpecial').checked == true) {
+            document.getElementById('cSimple').checked = false;
             Enable_formSpecial();
-
-            document.getElementById('cSaving').checked = false;
             Disable_formSaving();
-        }
-    });
-
-    $("#cSpecial").click(function () {
-        if (document.getElementById('cSpecial').checked == false) {
-            Disable_formSpecial();
         } else {
-            Enable_formSpecial();
-
-            document.getElementById('cSaving').checked = false;
+            Disable_formSpecial();
             Disable_formSaving();
+            document.getElementById('cSimple').checked = true;
         }
     });
 
     $("#cSaving").click(function () {
-        if (document.getElementById('cSaving').checked == false) {
-            Disable_formSaving();
-        } else {
+        if (document.getElementById('cSaving').checked == true) {
+            document.getElementById('cSimple').checked = false;
             Enable_formSaving();
-
-            document.getElementById('cSpecial').checked = false;
             Disable_formSpecial();
+        } else {
+            Disable_formSpecial();
+            Disable_formSaving();
+            document.getElementById('cSimple').checked = true;
         }
     });
 
+    $("#cSimple").click(function () {
+        Disable_formSpecial();
+        Disable_formSaving();
+    });
+
     function Enable_formSaving() {
-        document.getElementById('formSaving1').hidden = false;
-        document.getElementById('formSaving2').hidden = false;
     }
 
     function Enable_formSpecial() {
@@ -191,20 +226,27 @@
         document.getElementById('formSpecial2').hidden = false;
     }
 
+    function Enable_formSimple() {
+        document.getElementById('formSpecial1').hidden = false;
+        document.getElementById('formSpecial2').hidden = false;
+        document.getElementById('formSaving1').hidden = false;
+        document.getElementById('formSaving2').hidden = false;
+    }
+
 
     function Disable_formSaving() {
-        document.getElementById('formSaving1').hidden = true;
-        document.getElementById('formSaving2').hidden = true;
-        document.getElementById('txtUltimoAcesso').value = "";
-        document.getElementById('txtRendaGerada').value = "";
+        document.getElementById('cSaving').checked = false;
     }
 
     function Disable_formSpecial() {
+        document.getElementById('cSpecial').checked = false;
         document.getElementById('formSpecial1').hidden = true;
         document.getElementById('formSpecial2').hidden = true;
         document.getElementById('txtNomeGerente').value = "";
         document.getElementById('txtEmailGerente').value = "";
     }
+
+
 
 
     var txtCPF = document.getElementById('txtCPF');
@@ -268,7 +310,7 @@
         setNull();
         txtCPF.readOnly = false;
         txtCPF.value = "";
-        btnCPF.classList.add('hidden');
+        btnCPF.classList.add('disabled');
     });
 
 

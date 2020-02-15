@@ -5,14 +5,11 @@
     ViewData["CPF"] = Model.CPF;
 }
 
-<h2>Edit</h2>
-
-<hr />
-
 <div class="container">
 
     @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { }))
     {
+        <br />
 
         <div class="row">
             <div class="col-md-6">
@@ -45,9 +42,9 @@
         <br />
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 text-center">
                 <label asp-for="NAME" class="control-label"></label>
-                <input asp-for="NAME" required class="form-control" />
+                <input asp-for="NAME" required class="form-control text-center" />
                 <span asp-validation-for="NAME" class="text-danger"></span>
             </div>
         </div>
@@ -83,7 +80,15 @@
         <br />
         <br />
         <br />
-        <input type="submit" value="Save" class="btn btn-default" />
+
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <input type="submit" value="Save" class="form-control btn-default text-center" />
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+
         <br />
 
     }
