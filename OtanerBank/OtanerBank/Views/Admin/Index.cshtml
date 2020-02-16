@@ -40,7 +40,7 @@
             <div class="row">
 
                 <div id="Clients0" class="col-md-10">
-                    <h4>x Inactive Clients</h4>
+                    <h4 id="txtQteInactives"></h4>
                 </div>
 
                 <div style="float: right;" class="col-md-2">
@@ -64,7 +64,7 @@
             <div class="row">
 
                 <div id="Clients1" class="col-md-10">
-                    <h4>x Active Clients</h4>
+                    <h4 id="txtQteActives"></h4>
                 </div>
 
                 <div style="float: right;" class="col-md-2">
@@ -89,7 +89,7 @@
     <br />
     <br />
     <br />
-    
+
 
     <table class="table">
         <thead>
@@ -97,22 +97,25 @@
                 @{
                     Client client = new Client();
 
-                    <th>
+                    <th class="text-center">
                         @Html.LabelFor(x => client.id)
                     </th>
-                    <th>
+                    <th class="text-center">
                         @Html.LabelFor(x => client.ACCOUNT)
                     </th>
-                    <th>
+                    <th class="text-center">
                         @Html.LabelFor(x => client.CPF)
                     </th>
-                    <th>
+                    <th class="text-center">
                         @Html.LabelFor(x => client.NAME)
                     </th>
-                    <th>
+                    <th class="text-center">
                         @Html.LabelFor(x => client.BALANCE)
                     </th>
-                    <th>
+                    <th class="text-center">
+                        @Html.LabelFor(x => client.STATUS)
+                    </th>
+                    <th class="text-center">
                         @Html.Label("Options")
                     </th>
                 }
@@ -122,7 +125,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr class="text-center">
                     <td>
                         @Html.DisplayFor(modelItem => item.id)
                     </td>
@@ -139,8 +142,30 @@
                         @Html.DisplayFor(modelItem => item.BALANCE)
                     </td>
                     <td>
+                        @if (item.STATUS == "1")
+                        {
+                            <p style="color:green;">Actived</p>
+                        }
+                        else
+                        {
+                            <p style="color:red;">Inactived</p>
+                        }
+
+                    </td>
+                    <td>
                         | @Html.ActionLink("Edit", "Edit", new { CPF = item.CPF }) |
                         @Html.ActionLink("Details", "Details", new { CPF = item.CPF }) |
+
+                        @if (item.STATUS == "1")
+                        {
+                            @Html.ActionLink("Inactive", "Inactive", new { CPF = item.CPF })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Active", "Active", new { CPF = item.CPF })
+                        }
+
+                        |
                     </td>
                 </tr>
             }
@@ -152,8 +177,40 @@ else
 
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            url: 'https://localhost:44397/Admin/CountActives',
+            dataType: "json",
+            success: (function (msg) {
+                document.getElementById('txtQteActives').textContent = 'Active Clients: ' + msg;
+            }),
+            error: (function (msg) {
+
+            })
+        });
+
+        $.ajax({
+            type: "GET",
+            url: 'https://localhost:44397/Admin/CountInactives',
+            dataType: "json",
+            success: (function (msg) {
+                document.getElementById('txtQteInactives').textContent = 'Inactive Clients: ' + msg;
+            }),
+            error: (function (msg) {
+
+            })
+        });
+
+
+
+    });
+
     function MinimizeClient() {
 
         //alert(document.getElementById('Clients' + arguments[0]).hidden);
@@ -165,7 +222,7 @@ else
             document.getElementById('Clients' + arguments[0]).hidden = true;
             document.getElementById('TotalClients' + arguments[0]).hidden = true;
             document.getElementById('LinkClients' + arguments[0]).hidden = true;
-            
+
         } else {
 
             document.getElementById('Minimize' + arguments[0]).textContent = '-';

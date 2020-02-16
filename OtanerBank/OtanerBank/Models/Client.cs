@@ -32,5 +32,8 @@ namespace OtanerBank.Models
         public string MANAGER_NAME { get; set; }
         [DisplayName("Manager E-mail")]
         public string MANAGER_EMAIL { get; set; }
+        
+        [DisplayName("Status")]
+        public string STATUS { get; set; }
     }
 }

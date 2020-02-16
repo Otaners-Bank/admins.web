@@ -62,7 +62,7 @@ namespace OtanerBank.Controllers
             if (message.IsSuccessStatusCode)
             {
                 ViewData["ErrorLoginMessage"] = "";
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/" + CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Search/" + CPF);
                 Admin admin = JsonConvert.DeserializeObject<Admin>(response);
 
                 var admJson = JsonConvert.SerializeObject(admin);

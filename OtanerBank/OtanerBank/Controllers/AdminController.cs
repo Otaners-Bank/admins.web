@@ -16,44 +16,7 @@ namespace OtanerBank.Controllers
     {
         static HttpClient http = new HttpClient(); // to call the api later
 
-        [HttpPost]
-        public async Task<bool> Profile(Admin admin)
-        {
-            if (AdminUnauthorized()) return false;
-
-            try
-            {
-                if (String.IsNullOrWhiteSpace(admin.CPF) || String.IsNullOrEmpty(admin.CPF)
-                    || String.IsNullOrWhiteSpace(admin.NAME) || String.IsNullOrEmpty(admin.NAME)
-                    || String.IsNullOrWhiteSpace(admin.PASSWORD) || String.IsNullOrEmpty(admin.PASSWORD))
-                {
-                    return false;
-                }
-                else
-                {
-                    var jsonString = JsonConvert.SerializeObject(admin); // Serializing object to put in the JsonObject
-                    var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                    var message = await http.PutAsync("https://localhost:44329/Admins/" + ViewData["CurrentAdminCPF"], httpContent);
-
-
-                    Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/" + admin.CPF);
-                    Admin adm = JsonConvert.DeserializeObject<Admin>(response.Result);
-
-                    ViewData["CurrentAdminId"] = admin.id;
-                    ViewData["CurrentAdminCPF"] = admin.CPF;
-                    ViewData["CurrentAdminName"] = adm.NAME;
-                    ViewData["CurrentAdminEmail"] = adm.EMAIL;
-                    ViewData["CurrentAdminPassword"] = adm.PASSWORD;
-
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-        }
+        // -- Dashboard
 
         public async Task<IActionResult> Index()
         {
@@ -61,7 +24,7 @@ namespace OtanerBank.Controllers
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients");
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/All");
                 List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
                 return View(Clients.ToList());
@@ -73,13 +36,81 @@ namespace OtanerBank.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<string> CountActives()
+        {
+            string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Active/CountTotal");
+            return response;
+        }
+
+        [HttpGet]
+        public async Task<string> CountInactives()
+        {
+            string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Inactive/CountTotal");
+            return response;
+        }
+
+        public async Task<ActionResult> Inactive(string CPF)
+        {
+            HttpResponseMessage response = await http.DeleteAsync("https://localhost:44329/Admins/Clients/InactiveClient/" + CPF);
+            return RedirectToAction("Index","Admin");
+        }
+        
+        public async Task<ActionResult> Active(string CPF)
+        {
+            HttpResponseMessage response = await http.DeleteAsync("https://localhost:44329/Admins/Clients/ActiveClient/" + CPF);
+            return RedirectToAction("Index","Admin");
+        }
+
+        // -- Dashboard end
+
+        private bool AdminUnauthorized()
+        {
+            try
+            {
+                if (HttpContext.Session.GetString("AdminLogged") != null)
+                {
+                    Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
+
+                    Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/Search/" + adm.CPF);
+
+                    Admin admin = JsonConvert.DeserializeObject<Admin>(response.Result);
+
+                    if (adm.PASSWORD != null && adm.PASSWORD == admin.PASSWORD)
+                    {
+                        ViewData["CurrentAdminId"] = adm.id;
+                        ViewData["CurrentAdminCPF"] = adm.CPF;
+                        ViewData["CurrentAdminName"] = admin.NAME;
+                        ViewData["CurrentAdminEmail"] = admin.EMAIL;
+                        ViewData["CurrentAdminPassword"] = admin.PASSWORD;
+
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+
+        }
+
         public async Task<IActionResult> Details(string CPF)
         {
             try
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/" + CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/" + CPF);
                 Client client = JsonConvert.DeserializeObject<Client>(response);
 
                 return View(client);
@@ -96,7 +127,7 @@ namespace OtanerBank.Controllers
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/" + CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/" + CPF);
                 Client client = JsonConvert.DeserializeObject<Client>(response);
 
                 return View(client);
@@ -114,7 +145,7 @@ namespace OtanerBank.Controllers
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/" + client.CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/" + client.CPF);
                 Client oldClientInformation = JsonConvert.DeserializeObject<Client>(response);
 
                 client.PASSWORD = oldClientInformation.PASSWORD;
@@ -132,7 +163,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PutAsync("https://localhost:44329/Admins/Clients/" + client.CPF, httpContent);
+                var message = await http.PutAsync("https://localhost:44329/Admins/Clients/Update/" + client.CPF, httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -177,7 +208,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PostAsync("https://localhost:44329/Admins/Clients", httpContent);
+                var message = await http.PostAsync("https://localhost:44329/Admins/Clients/Register/", httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -185,6 +216,45 @@ namespace OtanerBank.Controllers
             {
                 return RedirectToAction("Error");
             }
+        }
+
+        [HttpPost]
+        public async Task<bool> Profile(Admin admin)
+        {
+            if (AdminUnauthorized()) return false;
+
+            try
+            {
+                if (String.IsNullOrWhiteSpace(admin.CPF) || String.IsNullOrEmpty(admin.CPF)
+                    || String.IsNullOrWhiteSpace(admin.NAME) || String.IsNullOrEmpty(admin.NAME)
+                    || String.IsNullOrWhiteSpace(admin.PASSWORD) || String.IsNullOrEmpty(admin.PASSWORD))
+                {
+                    return false;
+                }
+                else
+                {
+                    var jsonString = JsonConvert.SerializeObject(admin); // Serializing object to put in the JsonObject
+                    var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                    var message = await http.PutAsync("https://localhost:44329/Admins/Update/" + ViewData["CurrentAdminCPF"], httpContent);
+
+
+                    Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/Search/" + admin.CPF);
+                    Admin adm = JsonConvert.DeserializeObject<Admin>(response.Result);
+
+                    ViewData["CurrentAdminId"] = admin.id;
+                    ViewData["CurrentAdminCPF"] = admin.CPF;
+                    ViewData["CurrentAdminName"] = adm.NAME;
+                    ViewData["CurrentAdminEmail"] = adm.EMAIL;
+                    ViewData["CurrentAdminPassword"] = adm.PASSWORD;
+
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
         public ActionResult Logout()
@@ -198,45 +268,6 @@ namespace OtanerBank.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private bool AdminUnauthorized()
-        {
-            try
-            {
-                if (HttpContext.Session.GetString("AdminLogged") != null)
-                {
-                    Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
-
-                    Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/" + adm.CPF);
-
-                    Admin admin = JsonConvert.DeserializeObject<Admin>(response.Result);
-
-                    if (adm.PASSWORD != null && adm.PASSWORD == admin.PASSWORD)
-                    {
-                        ViewData["CurrentAdminId"] = adm.id;
-                        ViewData["CurrentAdminCPF"] = adm.CPF;
-                        ViewData["CurrentAdminName"] = admin.NAME;
-                        ViewData["CurrentAdminEmail"] = admin.EMAIL;
-                        ViewData["CurrentAdminPassword"] = admin.PASSWORD;
-
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                return true;
-            }
-
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
