@@ -87,6 +87,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+
+                    <div class="col-md-2">
+                        <div id="imgAdmin" style="width:50px; height:50px; float:right; border-radius: 50%;"></div>
+                    </div>
+
                     <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
                     <form onsubmit="alert('All info sent !')">
                         <div class="dropdown">
@@ -293,17 +298,19 @@
 
     $(document).ready(function () {
 
-        /*var timeToEnd = 0;
-
-        var timer = setInterval(function () {
-            timeToEnd++;
-
-            console.log('' + timeToEnd);
-
-            if (timeToEnd == 5) {
-                clearInterval(timer);
-            }
-        }, 1000);*/
+        $.ajax({
+            type: "GET",
+            url: 'https://localhost:44397/Admin/LoadImage',
+            dataType: "text",
+            success: (function (msg) {
+                document.getElementById('imgAdmin').style.backgroundImage = "url(" + msg + ")";
+                document.getElementById('imgAdmin').style.backgroundSize = "100% 100%";
+                document.getElementById('imgAdmin').style.backgroundRepeat = "no-repeat";
+            }),
+            error: (function (msg) {
+                document.getElementById('imgAdmin').style.display = 'none';
+            })
+        });
 
         $("#btnProfile").click(function () {
 
@@ -332,7 +339,7 @@
                 openDropdown.classList.remove('show');
             }
         }
-        Location.reload();
+        //Location.reload();
     }
 
 </script>

@@ -53,13 +53,21 @@ namespace OtanerBank.Controllers
         public async Task<ActionResult> Inactive(string CPF)
         {
             HttpResponseMessage response = await http.DeleteAsync("https://localhost:44329/Admins/Clients/InactiveClient/" + CPF);
-            return RedirectToAction("Index","Admin");
+            return RedirectToAction("Index", "Admin");
         }
-        
+
         public async Task<ActionResult> Active(string CPF)
         {
             HttpResponseMessage response = await http.DeleteAsync("https://localhost:44329/Admins/Clients/ActiveClient/" + CPF);
-            return RedirectToAction("Index","Admin");
+            return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpGet]
+        public async Task<string> LoadImage()
+        {
+            Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
+            string response = await http.GetStringAsync("https://localhost:44329/Admins/DownloadImage?CPF=" + adm.CPF);
+            return response;
         }
 
         // -- Dashboard end

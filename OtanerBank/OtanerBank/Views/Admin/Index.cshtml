@@ -82,14 +82,17 @@
             </div>
         </div>
 
-        <div class="col-md-2"></div>
-
     </div>
 
     <br />
     <br />
-    <br />
 
+    <div class="text-center">
+        <!--<input class="form-control" placeholder="Search by CPF" type="search" onkeyup="Search();" />-->
+    </div>
+
+    <br />
+    <br />
 
     <table class="table">
         <thead>
@@ -171,6 +174,10 @@
             }
         </tbody>
     </table>
+
+
+
+
 }
 else
 {
@@ -211,6 +218,12 @@ else
 
     });
 
+    function Search() {
+
+        console.log('pesquisa');
+
+    }
+
     function MinimizeClient() {
 
         //alert(document.getElementById('Clients' + arguments[0]).hidden);
@@ -234,26 +247,5 @@ else
         }
 
     }
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
