@@ -7,17 +7,8 @@
 <br />
 
 <style>
-    .Clients0 {
-        background-color: lightcoral;
-        box-shadow: 2px 6px 6px 2px rgba(0,0,0,0.2);
-    }
-
-    .Clients1 {
-        background-color: lightgreen;
-        box-shadow: 2px 6px 6px 2px rgba(0,0,0,0.2);
-    }
-
     .MinimizeButton {
+        margin-top: 0;
         font-weight: bold;
         font-size: large;
         cursor: pointer;
@@ -32,119 +23,139 @@
 @if (Model != null)
 {
 
-    <div class="row">
+    <div class="container">
 
-        <div class="col-md-2"></div>
+        <!--DASH-->
+        <div class="row">
 
-        <div id="DivClients0" class="col-md-3 Clients0">
-            <div class="row">
+            <div class="col-md-2"></div>
 
-                <div id="Clients0" class="col-md-10">
-                    <h4 id="txtQteInactives"></h4>
+            <div id="DivClients0" class="col-md-2 alert alert-info" role="alert">
+                <div class="row">
+
+                    <div id="Clients0" class="col-md-10">
+                        <h4 id="txtQte">Total: @Model.Count</h4>
+                    </div>
+
+                    <div style="float: right;" class="col-md-2">
+                        <h5 id="Minimize0" onclick="MinimizeClient('0');" class="MinimizeButton">&times;</h5>
+                    </div>
+
+                    <div id="LinkClients0" class="col-md-12">
+                        <a class="alert-link">show all</a>
+                    </div>
+
                 </div>
-
-                <div style="float: right;" class="col-md-2">
-                    <h5 id="Minimize0" onclick="MinimizeClient('0');" class="MinimizeButton">-</h5>
-                </div>
-
-                <div id="TotalClients0" class="col-md-12">
-                    <h5>Total of @Model.Count Clients</h5>
-                </div>
-
-                <div id="LinkClients0" class="col-md-12">
-                    <a style="float:right">show inactive clients</a>
-                </div>
-
             </div>
+
+            <div class="col-md-1"></div>
+
+            <div id="DivClients1" class="col-md-2 alert alert-danger" role="alert">
+                <div class="row">
+
+                    <div id="Clients1" class="col-md-10">
+                        <h4 id="txtQteInactives"></h4>
+                    </div>
+
+                    <div style="float: right;" class="col-md-2">
+                        <h5 id="Minimize1" onclick="MinimizeClient('1');" class="MinimizeButton">&times;</h5>
+                    </div>
+
+                    <div id="LinkClients1" class="col-md-12">
+                        <a class="alert-link">show only inactive</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-1"></div>
+
+            <div id="DivClients2" class="col-md-2 alert alert-success">
+                <div class="row">
+
+
+                    <div id="Clients2" class="col-md-10">
+                        <h4 id="txtQteActives"></h4>
+                    </div>
+
+                    <div style="float: right;" class="col-md-2">
+                        <h5 id="Minimize2" onclick="MinimizeClient('2');" class="MinimizeButton">&times;</h5>
+                    </div>
+
+                    <div id="LinkClients2" class="col-md-12">
+                        <a class="alert-link">show only active</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-2"></div>
+
         </div>
 
-        <div class="col-md-2"></div>
+        <br />
 
-        <div id="DivClients1" class="col-md-3 Clients1">
-            <div class="row">
-
-                <div id="Clients1" class="col-md-10">
-                    <h4 id="txtQteActives"></h4>
-                </div>
-
-                <div style="float: right;" class="col-md-2">
-                    <h5 id="Minimize1" onclick="MinimizeClient('1');" class="MinimizeButton">-</h5>
-                </div>
-
-                <div id="TotalClients1" class="col-md-12">
-                    <h5 onclick="MinimizeClient('1');">Total of @Model.Count Clients</h5>
-                </div>
-
-                <div id="LinkClients1" class="col-md-12">
-                    <a style="float:right">show active clients</a>
-                </div>
-
+        <!--SEARCH BAR-->
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" style="text-align: center;">
+                <input type="search" name="search" id="search_Pergunta" oninput="search()" placeholder="Search Client" style="width:100%; padding:5px; border:solid; border-color: #eee;
+        border-width: 1px;"> <br><br>
             </div>
+            <div class="col-md-4"></div>
         </div>
 
-    </div>
+        <br />
 
-    <br />
-    <br />
+        <!--CLIENTS-->
+        <div class="row">
 
-    <div class="text-center">
-        <!--<input class="form-control" placeholder="Search by CPF" type="search" onkeyup="Search();" />-->
-    </div>
-
-    <br />
-    <br />
-
-    <table class="table">
-        <thead>
-            <tr>
-                @{
-                    Client client = new Client();
-
-                    <th class="text-center">
-                        @Html.LabelFor(x => client.id)
-                    </th>
-                    <th class="text-center">
-                        @Html.LabelFor(x => client.ACCOUNT)
-                    </th>
-                    <th class="text-center">
-                        @Html.LabelFor(x => client.CPF)
-                    </th>
-                    <th class="text-center">
-                        @Html.LabelFor(x => client.NAME)
-                    </th>
-                    <th class="text-center">
-                        @Html.LabelFor(x => client.BALANCE)
-                    </th>
-                    <th class="text-center">
-                        @Html.LabelFor(x => client.STATUS)
-                    </th>
-                    <th class="text-center">
-                        @Html.Label("Options")
-                    </th>
-                }
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
             @foreach (var item in Model)
             {
-                <tr class="text-center">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ACCOUNT)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CPF)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NAME)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BALANCE)
-                    </td>
-                    <td>
+
+                <div class="col-md-4" style="margin-bottom:3%;">
+                    <div class="list-group-item list-group-item-action flex-column align-items-center">
+
+                        <h5>
+                            ID: @Html.DisplayFor(modelItem => item.id)
+                        </h5>
+
+                        <h5>
+                            Account: @Html.DisplayFor(modelItem => item.ACCOUNT)
+                        </h5>
+
+                        <h5>
+                            CPF: @Html.DisplayFor(modelItem => item.CPF)
+                        </h5>
+
+                        <h5>
+                            Name: @Html.DisplayFor(modelItem => item.NAME)
+                        </h5>
+
+                        <h5>
+                            Balance: @Html.DisplayFor(modelItem => item.BALANCE)
+                        </h5>
+
+
+
+
+                        <p style="float:right;">
+                            |
+                            @Html.ActionLink("Edit", "Edit", new { CPF = item.CPF }) |
+                            @Html.ActionLink("Details", "Details", new { CPF = item.CPF }) |
+
+
+                            @if (item.STATUS == "1")
+                            {
+                                @Html.ActionLink("Inactive", "Inactive", new { CPF = item.CPF })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Active", "Active", new { CPF = item.CPF })
+                            }
+                            |
+                        </p>
+
                         @if (item.STATUS == "1")
                         {
                             <p style="color:green;">Actived</p>
@@ -154,29 +165,15 @@
                             <p style="color:red;">Inactived</p>
                         }
 
-                    </td>
-                    <td>
-                        | @Html.ActionLink("Edit", "Edit", new { CPF = item.CPF }) |
-                        @Html.ActionLink("Details", "Details", new { CPF = item.CPF }) |
+                    </div>
+                </div>
 
-                        @if (item.STATUS == "1")
-                        {
-                            @Html.ActionLink("Inactive", "Inactive", new { CPF = item.CPF })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Active", "Active", new { CPF = item.CPF })
-                        }
-
-                        |
-                    </td>
-                </tr>
             }
-        </tbody>
-    </table>
 
 
+        </div>
 
+    </div>
 
 }
 else
@@ -190,12 +187,13 @@ else
 
     $(document).ready(function () {
 
+
         $.ajax({
             type: "GET",
             url: 'https://localhost:44397/Admin/CountActives',
             dataType: "json",
             success: (function (msg) {
-                document.getElementById('txtQteActives').textContent = 'Active Clients: ' + msg;
+                document.getElementById('txtQteActives').textContent = 'Actives: ' + msg;
             }),
             error: (function (msg) {
 
@@ -207,14 +205,12 @@ else
             url: 'https://localhost:44397/Admin/CountInactives',
             dataType: "json",
             success: (function (msg) {
-                document.getElementById('txtQteInactives').textContent = 'Inactive Clients: ' + msg;
+                document.getElementById('txtQteInactives').textContent = 'Inactives: ' + msg;
             }),
             error: (function (msg) {
 
             })
         });
-
-
 
     });
 
@@ -233,15 +229,13 @@ else
             document.getElementById('Minimize' + arguments[0]).textContent = '+';
 
             document.getElementById('Clients' + arguments[0]).hidden = true;
-            document.getElementById('TotalClients' + arguments[0]).hidden = true;
             document.getElementById('LinkClients' + arguments[0]).hidden = true;
 
         } else {
 
-            document.getElementById('Minimize' + arguments[0]).textContent = '-';
+            document.getElementById('Minimize' + arguments[0]).innerHTML = '&times;';
 
             document.getElementById('Clients' + arguments[0]).hidden = false;
-            document.getElementById('TotalClients' + arguments[0]).hidden = false;
             document.getElementById('LinkClients' + arguments[0]).hidden = false;
 
         }

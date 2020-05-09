@@ -4,146 +4,144 @@
     ViewData["Title"] = "Register Client";
 }
 
-<div id="formClient" class="row">
-    @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { }))
-    {
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div id="formClient" class="row" style="margin-top:4%;">
+        @using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { }))
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <!--Account Type-->
-        <div class="form-group text-center">
+            <!--Special Account inputs-->
+            <div class="form-group text-center">
 
-            <h3>Account type:</h3>
+                <label asp-for="CPF" class="control-label"></label>
 
-            <input type="checkbox" id="cSimple" checked="checked" class="form-group" />
-            <label for="cSimple">Simple account</label><br />
-            <input type="checkbox" id="cSaving" class="form-group" />
-            <label for="cPoupanca">Saving account</label><br />
-            <input type="checkbox" id="cSpecial" class="form-group" />
-            <label for="cEspecial">Special account</label><br />
+                <br />
 
-        </div>
+                <div class="col-md-2">
 
-        <!--Special Account inputs-->
-        <div class="form-group text-center">
+                </div>
+                <div class="col-md-6">
+                    <input asp-for="CPF" class="form-control col-lg-12" onblur="ValidarCPF()" maxlength="14" autocomplete="off" id="txtCPF" placeholder="Example: 12345678910" required />
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="form-control col-lg-12 disabled" readonly id="btnCPF" value="Edit CPF" />
+                </div>
+                <div class="col-md-2">
 
-            <label asp-for="CPF" class="control-label"></label>
+                </div>
 
-            <br />
 
-            <div class="col-md-2">
+                <br />
 
-            </div>
-            <div class="col-md-6">
-                <input asp-for="CPF" class="form-control col-lg-12" onblur="ValidarCPF()" maxlength="14" autocomplete="off" id="txtCPF" placeholder="Example: 12345678910" required />
-            </div>
-            <div class="col-md-2">
-                <input type="button" class="form-control col-lg-12 disabled" readonly id="btnCPF" value="Edit CPF" />
-            </div>
-            <div class="col-md-2">
+                <span asp-validation-for="CPF" id="errorCPF" class="text-danger"></span>
+
+                <br />
 
             </div>
+            <div class="form-group text-center">
 
+                <label asp-for="ACCOUNT" class="control-label"></label>
+                <br />
 
-            <br />
-
-            <span asp-validation-for="CPF" id="errorCPF" class="text-danger"></span>
-
-            <br />
-
-        </div>
-        <div class="form-group text-center">
-
-            <label asp-for="ACCOUNT" class="control-label"></label>
-            <br />
-
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <input asp-for="ACCOUNT" id="txtConta" class="form-control text-center" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
-                <span asp-validation-for="ACCOUNT" class="text-danger"></span>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input asp-for="ACCOUNT" id="txtConta" class="form-control text-center" autocomplete="off" maxlength="6" placeholder="The account number for access later" required />
+                    <span asp-validation-for="ACCOUNT" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <br /><br />
             </div>
-            <div class="col-md-2"></div>
-            <br /><br />
-        </div>
-        <div class="form-group text-center">
+            <div class="form-group text-center">
 
-            <label asp-for="NAME" class="control-label"></label>
-            <br />
+                <label asp-for="NAME" class="control-label"></label>
+                <br />
 
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <input asp-for="NAME" id="txtNome" class="form-control text-center" autocomplete="off" inputmode="latin-name" required maxlength="30" placeholder="How we will call the client" />
-                <span asp-validation-for="NAME" class="text-danger"></span>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input asp-for="NAME" id="txtNome" class="form-control text-center" autocomplete="off" inputmode="latin-name" required maxlength="30" placeholder="How we will call the client" />
+                    <span asp-validation-for="NAME" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <br /><br />
             </div>
-            <div class="col-md-2"></div>
-            <br /><br />
-        </div>
-        <div class="form-group text-center">
-            <label asp-for="EMAIL" class="control-label"></label>
-            <br />
+            <div class="form-group text-center">
+                <label asp-for="EMAIL" class="control-label"></label>
+                <br />
 
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <input asp-for="EMAIL" id="txtEmail" class="form-control text-center" autocomplete="off" inputmode="email" maxlength="30" placeholder="How we can contact the client" required />
-                <span asp-validation-for="EMAIL" class="text-danger"></span>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input asp-for="EMAIL" id="txtEmail" class="form-control text-center" autocomplete="off" inputmode="email" maxlength="30" placeholder="How we can contact the client" required />
+                    <span asp-validation-for="EMAIL" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <br /><br />
             </div>
-            <div class="col-md-2"></div>
-            <br /><br />
-        </div>
-        <div class="form-group text-center">
-            <label asp-for="PASSWORD" class="control-label"></label>
-            <br />
+            <div class="form-group text-center">
+                <label asp-for="PASSWORD" class="control-label"></label>
+                <br />
 
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <input asp-for="PASSWORD" id="txtSenha" class="form-control text-center" autocomplete="off" inputmode="numeric" maxlength="4" placeholder="The account password for access later" required />
-                <span asp-validation-for="PASSWORD" class="text-danger"></span>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input asp-for="PASSWORD" id="txtSenha" class="form-control text-center" autocomplete="off" inputmode="numeric" maxlength="4" placeholder="The account password for access later" required />
+                    <span asp-validation-for="PASSWORD" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <br /><br />
             </div>
-            <div class="col-md-2"></div>
-            <br /><br />
-        </div>
-        <!--End of Simple Account inputs-->
-    
-        <!--Special Account inputs-->
-        <div class="form-group text-center" id="formSpecial1">
-            <label asp-for="MANAGER_NAME" class="control-label"></label>
-            <br />
+            <!--End of Simple Account inputs-->
 
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <input asp-for="MANAGER_NAME" id="txtNomeGerente" class="form-control text-center" autocomplete="off" inputmode="latin-name" maxlength="30" placeholder="Name of client manager" />
-                <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
+            <!--Special Account inputs-->
+            <div class="form-group text-center" id="formSpecial1">
+                <label asp-for="MANAGER_NAME" class="control-label"></label>
+                <br />
+
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input asp-for="MANAGER_NAME" id="txtNomeGerente" class="form-control text-center" autocomplete="off" inputmode="latin-name" maxlength="30" placeholder="Name of client manager" />
+                    <span asp-validation-for="MANAGER_NAME" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <br /><br />
             </div>
-            <div class="col-md-2"></div>
-            <br /><br />
-        </div>
-        <div class="form-group text-center" id="formSpecial2">
-            <label asp-for="MANAGER_EMAIL" class="control-label"></label>
-            <br />
+            <div class="form-group text-center" id="formSpecial2">
+                <label asp-for="MANAGER_EMAIL" class="control-label"></label>
+                <br />
 
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <input asp-for="MANAGER_EMAIL" id="txtEmailGerente" class="form-control text-center" autocomplete="off" inputmode="email" maxlength="30" placeholder="E-mail of client manager" />
-                <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input asp-for="MANAGER_EMAIL" id="txtEmailGerente" class="form-control text-center" autocomplete="off" inputmode="email" maxlength="30" placeholder="E-mail of client manager" />
+                    <span asp-validation-for="MANAGER_EMAIL" class="text-danger"></span>
+                </div>
+                <div class="col-md-2"></div>
+                <br /><br />
             </div>
-            <div class="col-md-2"></div>
-            <br /><br />
-        </div>
-        <!--End of Special Account inputs-->
+            <!--End of Special Account inputs-->
 
-        <!--Submit button-->
-        <div class="form-group text-center">
-            <br />
+            <!--Account Type-->
+            <div class="form-group text-center">
 
-            <div class="col-md-5"></div>
-            <div class="col-md-2">
-                <input type="submit" value="Save" class="form-control btn-default text-center" />
+                <input type="checkbox" id="cSimple" checked="checked" class="form-group" />
+                <label for="cSimple">Simple account</label><br />
+                <input type="checkbox" id="cSaving" class="form-group" />
+                <label for="cPoupanca">Saving account</label><br />
+                <input type="checkbox" id="cSpecial" class="form-group" />
+                <label for="cEspecial">Special account</label><br />
+
             </div>
-            <div class="col-md-5"></div>
 
-        </div>
-        <!--End of submit button-->
-    }
-</div>
+            <!--Submit button-->
+            <div class="form-group text-center">
+                <br />
+
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <input type="submit" value="Save" class="form-control btn-default text-center" />
+                </div>
+                <div class="col-md-5"></div>
+
+            </div>
+            <!--End of submit button-->
+        }
+    </div>
 
 
 

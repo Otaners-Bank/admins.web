@@ -37,6 +37,26 @@ namespace OtanerBank.Controllers
         }
 
         [HttpGet]
+        public async Task<string> LoadImage()
+        {
+            Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
+            string response = await http.GetStringAsync("https://localhost:44329/Admins/DownloadImage?CPF=" + adm.CPF);
+            return response;
+        }
+
+        [HttpPost]
+        public async Task<string> UploadImage([FromBody] string path)
+        {
+            var jsonString = JsonConvert.SerializeObject(path); // Serializing object to put in the JsonObject
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
+            var message = await http.PostAsync("https://localhost:44329/Admins/UploadImage?CPF=" + adm.CPF, httpContent);
+
+            return ""+ message.StatusCode;
+        }
+
+        [HttpGet]
         public async Task<string> CountActives()
         {
             string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Active/CountTotal");
@@ -62,13 +82,6 @@ namespace OtanerBank.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-        [HttpGet]
-        public async Task<string> LoadImage()
-        {
-            Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
-            string response = await http.GetStringAsync("https://localhost:44329/Admins/DownloadImage?CPF=" + adm.CPF);
-            return response;
-        }
 
         // -- Dashboard end
 

@@ -52,6 +52,49 @@
     .show {
         display: block;
     }
+
+    #parent {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    #imgAdmin {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 0;
+        border-radius: 50%;
+    }
+
+    #imgChange {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 0;
+        border-radius: 50%;
+        background-image: url(https://drive.google.com/uc?id=1LSDqJ8urNSKWs_3dezLogpb9VBngbKFo);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: dimgray;
+        opacity: 0;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+    }
+
+        #imgChange:hover {
+            cursor: pointer;
+            opacity: 0.2;
+        }
+
+            #imgChange:hover > #imgAdmin {
+                cursor: pointer;
+                opacity: 0.5;
+            }
 </style>
 
 <html>
@@ -88,8 +131,14 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <div class="col-md-2">
-                        <div id="imgAdmin" style="width:50px; height:50px; float:right; border-radius: 50%;"></div>
+                    <div id="parent" class="col-md-2">
+                        <div id="imgAdmin"></div>
+                        <div id="imgChange" onclick="path.click();"></div>
+
+                        <img id="blah" src="#" alt="your image" />
+
+                        <form id="FormChangeImg" enctype="multipart/form-data" style="opacity:0;"><input name="path" id="path" type="file" hidden /></form>
+
                     </div>
 
                     <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
@@ -264,6 +313,84 @@
 
 <script type="text/javascript">
 
+    var inputImg = document.getElementById('path');
+
+    $(document).ready(function () {
+
+        LoadImage();
+
+        $("#btnProfile").click(function () {
+
+            $(function () {
+
+                document.getElementById("myDropdown").classList.toggle("show");
+
+            });
+
+        })
+
+        $("#btnDimissAdminInfoModal").click(function () {
+            $("#AdminInfoModal").modal('hide');
+        });
+
+        inputImg.addEventListener('change', function () {
+            readURL(this);
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                 
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+                /*
+                 $.ajax({
+                        type: 'POST',
+                        url: 'https://localhost:44329/Admins/UploadImage?CPF=' + document.getElementById('CPF').value,
+                        dataType: 'json',
+                        data: JSON.stringify({ "path": e.target.result }),
+                        success: function (msg) {
+                            console.log('success');
+                            console.log(msg);
+                        }, error: function (msg) {
+                            console.log('error');
+                            console.log(msg);
+                        },
+                        contentType: "application/json"
+                    });
+                 */
+
+            }
+        }
+
+        $("#FormChangeImg").submit(function () {
+
+            return false;
+
+        });
+
+    });
+
+    function previewFile() {
+        var preview = document.querySelector('imgAdmin');
+        var file = document.querySelector('#inputImg').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.backgroundImage = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
     function UpdateAdmin() {
 
         var CPF = document.getElementById('CPF').value;
@@ -296,40 +423,6 @@
 
     }
 
-    $(document).ready(function () {
-
-        $.ajax({
-            type: "GET",
-            url: 'https://localhost:44397/Admin/LoadImage',
-            dataType: "text",
-            success: (function (msg) {
-                document.getElementById('imgAdmin').style.backgroundImage = "url(" + msg + ")";
-                document.getElementById('imgAdmin').style.backgroundSize = "100% 100%";
-                document.getElementById('imgAdmin').style.backgroundRepeat = "no-repeat";
-            }),
-            error: (function (msg) {
-                document.getElementById('imgAdmin').style.display = 'none';
-            })
-        });
-
-        $("#btnProfile").click(function () {
-
-            $(function () {
-
-                document.getElementById("myDropdown").classList.toggle("show");
-
-            });
-
-        })
-
-        $("#btnDimissAdminInfoModal").click(function () {
-            $("#AdminInfoModal").modal('hide');
-        });
-
-
-    });
-
-
     function HideDropDown() {
         var dropdowns = document.getElementsByClassName("dropdown-content");
         var i;
@@ -341,5 +434,29 @@
         }
         //Location.reload();
     }
+
+    function LoadImage() {
+
+        // document.getElementById('imgAdmin').style.backgroundImage = "none";
+
+        $.ajax({
+            type: "GET",
+            url: 'https://localhost:44397/Admin/LoadImage',
+            dataType: "text",
+            success: (function (msg) {
+                document.getElementById('imgAdmin').style.backgroundImage = "url(" + msg + ")";
+                document.getElementById('imgAdmin').style.backgroundSize = "100% 100%";
+                document.getElementById('imgAdmin').style.backgroundRepeat = "no-repeat";
+            }),
+            error: (function (msg) {
+                document.getElementById('imgAdmin').style.backgroundImage = "url(" + 'https://drive.google.com/uc?id=1fS3x3WZiGzbND6lni6figmE6NaKqMydi' + ")";
+                document.getElementById('imgAdmin').style.backgroundSize = "100% 100%";
+                document.getElementById('imgAdmin').style.backgroundRepeat = "no-repeat";
+            })
+        });
+
+    }
+
+
 
 </script>
