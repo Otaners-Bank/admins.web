@@ -54,6 +54,8 @@
     }
 
     #parent {
+        margin-left: 10px;
+        margin-right: 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -118,6 +120,33 @@
 
 <body>
 
+    <!-- Modal -->
+    <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Choose your new Image:</h5>
+                </div>
+                <form id="FormUpdateImage">
+                    <div class="modal-body">
+
+                        <input class="form-control" id="ImageUrl" type="url" placeholder="Image path (for safety)" required />
+                        <br /><br />
+                        <div class="form-control" style="height:55vh;">
+                            <img id="blah" style="height:53vh; width:100%; border:0; border-radius: 5%;" />
+                        </div>
+                        <input class="form-control" id="imgPreview" type="file" value="Preview Image" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnCancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input id="btnSave" type="submit" class="btn btn-primary" value="Save Image" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
 
         @if (ViewData["CurrentAdminName"] != null)
@@ -133,13 +162,9 @@
 
                     <div id="parent" class="col-md-2">
                         <div id="imgAdmin"></div>
-                        <div id="imgChange" onclick="path.click();"></div>
-
-                        <img id="blah" src="#" alt="your image" />
-
-                        <form id="FormChangeImg" enctype="multipart/form-data" style="opacity:0;"><input name="path" id="path" type="file" hidden /></form>
-
+                        <div id="imgChange" data-toggle="modal" data-target="#ImageModal"></div>
                     </div>
+
 
                     <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
                     <form onsubmit="alert('All info sent !')">
@@ -333,61 +358,54 @@
             $("#AdminInfoModal").modal('hide');
         });
 
-        inputImg.addEventListener('change', function () {
-            readURL(this);
+        $("#imgPreview").change(function () {
+            ReadImage(this);
         });
 
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                 
+        $("#FormUpdateImage").submit(function () {
 
-                reader.onload = function (e) {
-                    $('#blah').attr('src', e.target.result);
-                }
+            $('#btnCancel').attr("disabled", true);
+            $('#btnSave').attr("disabled", true);
+            $('#ImageUrl').attr("disabled", true);
+            $('#blah').attr("disabled", true);
+            $('#imgPreview').attr("disabled", true);
 
-                reader.readAsDataURL(input.files[0]);
-                /*
-                 $.ajax({
-                        type: 'POST',
-                        url: 'https://localhost:44329/Admins/UploadImage?CPF=' + document.getElementById('CPF').value,
-                        dataType: 'json',
-                        data: JSON.stringify({ "path": e.target.result }),
-                        success: function (msg) {
-                            console.log('success');
-                            console.log(msg);
-                        }, error: function (msg) {
-                            console.log('error');
-                            console.log(msg);
-                        },
-                        contentType: "application/json"
-                    });
-                 */
-
-            }
-        }
-
-        $("#FormChangeImg").submit(function () {
+            $.ajax({
+                type: "POST",
+                url: 'https://localhost:44329/Admins/UploadImage?path=' + document.getElementById('ImageUrl').value + "&CPF=" + document.getElementById('CPF').value,
+                dataType: "text",
+                success: (function (msg) {
+                    alert(msg);
+                    LoadImage();
+                    $('#ImageModal').modal('hide');
+                    $('#btnCancel').attr("disabled", false);
+                    $('#btnSave').attr("disabled", false);
+                    $('#ImageUrl').attr("disabled", false);
+                    $('#imgPreview').attr("disabled", false);
+                    $('#imgPreview').attr("disabled", false);
+                    document.getElementById('ImageUrl').value = "";
+                    $('#blah').attr('src', '');
+                    document.getElementById("imgPreview").value = "";
+                }),
+                error: (function (msg) {
+                    alert(msg);
+                })
+            });
 
             return false;
-
         });
 
     });
 
-    function previewFile() {
-        var preview = document.querySelector('imgAdmin');
-        var file = document.querySelector('#inputImg').files[0];
-        var reader = new FileReader();
+    function ReadImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-        reader.onloadend = function () {
-            preview.backgroundImage = reader.result;
-        }
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
 
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
         }
     }
 
@@ -456,7 +474,5 @@
         });
 
     }
-
-
 
 </script>
