@@ -224,20 +224,14 @@ else
 
         //alert(document.getElementById('Clients' + arguments[0]).hidden);
 
-        if (document.getElementById('Clients' + arguments[0]).hidden == false) {
-
+        if (document.getElementById('LinkClients' + arguments[0]).hidden == false) {
             document.getElementById('Minimize' + arguments[0]).textContent = '+';
-
-            document.getElementById('Clients' + arguments[0]).hidden = true;
+            //document.getElementById('Clients' + arguments[0]).hidden = true;
             document.getElementById('LinkClients' + arguments[0]).hidden = true;
-
         } else {
-
             document.getElementById('Minimize' + arguments[0]).innerHTML = '&times;';
-
-            document.getElementById('Clients' + arguments[0]).hidden = false;
+            //document.getElementById('Clients' + arguments[0]).hidden = false;
             document.getElementById('LinkClients' + arguments[0]).hidden = false;
-
         }
 
     }

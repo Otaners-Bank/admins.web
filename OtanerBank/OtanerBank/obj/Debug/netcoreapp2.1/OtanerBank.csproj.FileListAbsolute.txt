@@ -72,7 +72,6 @@ C:\projects\OtanersBank\WebAdmins\master\OtanerBank\OtanerBank\obj\Debug\netcore
 C:\projects\OtanersBank\WebAdmins\master\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\Razor\Views\Home\Signin.cshtml.g.cs
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\appsettings.Development.json
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\appsettings.json
-C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\OtanerBank.deps.json
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\OtanerBank.runtimeconfig.json
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\OtanerBank.runtimeconfig.dev.json
@@ -108,3 +107,4 @@ C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\OtanerBank.pdb
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\OtanerBank.genruntimeconfig.cache
 C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\obj\Debug\netcoreapp2.1\OtanerBank.csproj.CopyComplete
+C:\projects\OtanersBank\admins.web\OtanerBank\OtanerBank\bin\Debug\netcoreapp2.1\Properties\launchSettings.json

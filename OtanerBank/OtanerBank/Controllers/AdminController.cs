@@ -229,7 +229,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PostAsync("https://localhost:44329/Admins/Clients/Register/", httpContent);
+                var message = await http.PostAsync("https://localhost:44329/Admins/Clients/Insert", httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
