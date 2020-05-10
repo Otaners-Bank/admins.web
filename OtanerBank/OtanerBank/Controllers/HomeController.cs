@@ -43,11 +43,11 @@ namespace OtanerBank.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string CPF, string PASSWORD)
+        public async Task<IActionResult> Login(string EMAIL, string PASSWORD)
         {
             Admin adm = new Admin
             {
-                CPF = CPF,
+                EMAIL = EMAIL,
                 PASSWORD = PASSWORD
             };
 
@@ -62,7 +62,7 @@ namespace OtanerBank.Controllers
             if (message.IsSuccessStatusCode)
             {
                 ViewData["ErrorLoginMessage"] = "";
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Search/" + CPF);
+                string response = await http.GetStringAsync("https://localhost:44329/Admins/Search/Login/" + EMAIL);
                 Admin admin = JsonConvert.DeserializeObject<Admin>(response);
 
                 var admJson = JsonConvert.SerializeObject(admin);
