@@ -5,7 +5,6 @@
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
 
 <style>
 
@@ -35,83 +34,56 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-md-8">
 
                     <div class="modal fade" tabindex="-1" id="DetailsModal"
                          data-keyboard="false" data-backdrop="static">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button id="btnDimiss" type="button" class="close">
                                         &times;
                                     </button>
-                                    <h4>@Model.NAME</h4>
+                                    <h4 style="margin:2%;">@Model.NAME</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
 
-                                        <div>
-                                            <dl class="dl-horizontal">
-                                                <dt>
-                                                    @Html.DisplayNameFor(model => model.ACCOUNT)
-                                                </dt>
-                                                <dd>
-                                                    @Html.DisplayFor(model => model.ACCOUNT)
-                                                </dd>
-                                                <dt>
-                                                    @Html.DisplayNameFor(model => model.CPF)
-                                                </dt>
-                                                <dd>
-                                                    @Html.DisplayFor(model => model.CPF)
-                                                </dd>
-                                                <dt>
-                                                    @Html.DisplayNameFor(model => model.BALANCE)
-                                                </dt>
-                                                <dd>
-                                                    @Html.DisplayFor(model => model.BALANCE)
-                                                </dd>
+                                    <div style="margin:2%;">
+                                        <h5>@Html.DisplayNameFor(model => model.ACCOUNT): @Html.DisplayFor(model => model.ACCOUNT)</h5>
 
-                                                @{
-                                                    if (Model.ACCOUNT.EndsWith("-2"))
-                                                    {
-                                                        <dt>
-                                                            @Html.DisplayNameFor(model => model.LAST_ACCESS)
-                                                        </dt>
-                                                        <dd>
-                                                            @Html.DisplayFor(model => model.LAST_ACCESS)
-                                                        </dd>
-                                                        <dt>
-                                                            @Html.DisplayNameFor(model => model.BALANCE_EARNED)
-                                                        </dt>
-                                                        <dd>
-                                                            @Html.DisplayFor(model => model.BALANCE_EARNED)
-                                                        </dd>
-                                                    }
-                                                }
+                                        <h5>@Html.DisplayNameFor(model => model.CPF): @Html.DisplayFor(model => model.CPF)</h5>
 
-                                                @{
-                                                    if (Model.ACCOUNT.EndsWith("-3"))
-                                                    {
-                                                        <dt>
-                                                            @Html.DisplayNameFor(model => model.MANAGER_NAME)
-                                                        </dt>
-                                                        <dd>
-                                                            @Html.DisplayFor(model => model.MANAGER_NAME)
-                                                        </dd>
-                                                        <dt>
-                                                            @Html.DisplayNameFor(model => model.MANAGER_EMAIL)
-                                                        </dt>
-                                                        <dd>
-                                                            @Html.DisplayFor(model => model.MANAGER_EMAIL)
-                                                        </dd>
-                                                    }
-                                                }
-                                            </dl>
-                                        </div>
+                                        <h5>@Html.DisplayNameFor(model => model.BALANCE): @Html.DisplayFor(model => model.BALANCE)</h5>
 
+                                        @{
+                                            if (Model.ACCOUNT.EndsWith("-2"))
+                                            {
+                                                <h5>
+                                                    @Html.DisplayNameFor(model => model.LAST_ACCESS): @Html.DisplayFor(model => model.LAST_ACCESS)
+                                                </h5>
+                                                <h5>
+                                                    @Html.DisplayNameFor(model => model.BALANCE_EARNED): @Html.DisplayFor(model => model.BALANCE_EARNED)
+                                                </h5>
+                                            }
+                                        }
 
-                                    </form>
+                                        @{
+                                            if (Model.ACCOUNT.EndsWith("-3"))
+                                            {
+                                                <h5>
+                                                    @Html.DisplayNameFor(model => model.MANAGER_NAME): @Html.DisplayFor(model => model.MANAGER_NAME)
+                                                </h5>
+                                                <h5>
+                                                    @Html.DisplayNameFor(model => model.MANAGER_EMAIL): @Html.DisplayFor(model => model.MANAGER_EMAIL)
+                                                </h5>
+                                            }
+                                        }
+                                    </div>
+
                                 </div>
+
+
+
                                 <div class="modal-footer">
 
                                     <div>

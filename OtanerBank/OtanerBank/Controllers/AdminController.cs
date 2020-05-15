@@ -53,7 +53,7 @@ namespace OtanerBank.Controllers
             Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
             var message = await http.PostAsync("https://localhost:44329/Admins/UploadImage?CPF=" + adm.CPF, httpContent);
 
-            return ""+ message.StatusCode;
+            return "" + message.StatusCode;
         }
 
         [HttpGet]
@@ -262,11 +262,25 @@ namespace OtanerBank.Controllers
                     Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/Search/" + admin.CPF);
                     Admin adm = JsonConvert.DeserializeObject<Admin>(response.Result);
 
-                    ViewData["CurrentAdminId"] = admin.id;
-                    ViewData["CurrentAdminCPF"] = admin.CPF;
-                    ViewData["CurrentAdminName"] = adm.NAME;
-                    ViewData["CurrentAdminEmail"] = adm.EMAIL;
-                    ViewData["CurrentAdminPassword"] = adm.PASSWORD;
+                    var old_password = ViewData["CurrentAdminPassword"];
+                    var new_password = adm.PASSWORD;
+
+                    if (old_password + "" != "" + new_password)
+                    {
+                        HttpContext.Session.Remove("AdminLogged");
+                        ViewData["CurrentAdminId"] = null;
+                        ViewData["CurrentAdminCPF"] = null;
+                        ViewData["CurrentAdminName"] = null;
+                        ViewData["CurrentAdminEmail"] = null;
+                        ViewData["CurrentAdminPassword"] = null;
+                    }
+                    else
+                    {
+                        ViewData["CurrentAdminId"] = admin.id;
+                        ViewData["CurrentAdminCPF"] = admin.CPF;
+                        ViewData["CurrentAdminName"] = adm.NAME;
+                        ViewData["CurrentAdminEmail"] = adm.EMAIL;
+                    }
 
                     return true;
                 }

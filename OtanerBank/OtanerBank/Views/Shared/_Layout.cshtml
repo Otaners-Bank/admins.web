@@ -120,7 +120,8 @@
 
 <body>
 
-    <!-- Modal -->
+
+    <!-- Image Modal -->
     <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -146,6 +147,99 @@
             </div>
         </div>
     </div>
+    <!-- Image Modal -->
+    <!-- Profile Modal -->
+    <div class="modal fade" id="ProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+
+                        <div class="col-md-1"></div>
+
+                        <div class="col-md-10 text-center">
+                            <h4 class="control-label">@ViewData["CurrentAdminName"]</h4>
+                        </div>
+
+                        <div class="col-md-1">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <form onsubmit="alert('All info sent !')">
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <label class="control-label">CPF</label>
+                            </div>
+
+                            <div class="col-md-2 text-center"></div>
+                            <div class="col-md-8 text-center">
+                                <input id="CPF" readonly class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminCPF"]" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2 text-center"></div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <label class="control-label">Name</label>
+                            </div>
+
+                            <div class="col-md-2 text-center"></div>
+                            <div class="col-md-8 text-center">
+                                <input id="NAME" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminName"]" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2 text-center"></div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <label class="control-label">Email</label>
+                            </div>
+
+                            <div class="col-md-2 text-center"></div>
+                            <div class="col-md-8 text-center">
+                                <input id="EMAIL" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminEmail"]" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2 text-center"></div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <label class="control-label">Password</label>
+                            </div>
+
+                            <div class="col-md-2 text-center"></div>
+                            <div class="col-md-8 text-center">
+                                <input id="PASSWORD" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminPassword"]" />
+                                <span class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2 text-center"></div>
+
+                        </div>
+                        <br />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-primary" onclick="UpdateAdmin()" value="Save" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Profile Modal -->
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
 
@@ -166,70 +260,9 @@
                     </div>
 
 
-                    <a id="btnProfile" class="navbar-brand Profile">@ViewData["CurrentAdminName"]</a>
-                    <form onsubmit="alert('All info sent !')">
-                        <div class="dropdown">
-                            <div id="myDropdown" class="dropdown-content">
-                                <div id="divContent">
+                    <a id="btnProfile" class="navbar-brand Profile" data-toggle="modal" data-target="#ProfileModal">@ViewData["CurrentAdminName"]</a>
 
-                                    <div>
-                                        <div class="row">
 
-                                            <div class="col-md-11">
-                                                <h4>@ViewData["CurrentAdminName"]</h4><br />
-                                            </div>
-                                            <div class="col-md-1">
-                                                <button onclick="HideDropDown();" type="button" class="close">
-                                                    ×
-                                                </button>
-                                            </div>
-
-                                            <div class="col-md-9">
-                                                <label class="control-label">CPF</label>
-                                                <input id="CPF" readonly class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminCPF"]" />
-                                                <span class="text-danger"></span>
-                                            </div>
-                                            <div class="col-md-3"></div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <label class="control-label">Name</label>
-                                                <input id="NAME" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminName"]" />
-                                                <span class="text-danger"></span>
-                                            </div>
-                                            <div class="col-md-3"></div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <label class="control-label">Email</label>
-                                                <input id="EMAIL" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminEmail"]" />
-                                                <span class="text-danger"></span>
-                                            </div>
-                                            <div class="col-md-3"></div>
-                                        </div>
-                                        <br />
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <label class="control-label">Password</label>
-                                                <input id="PASSWORD" class="form-control" autocomplete="off" required value="@ViewData["CurrentAdminPassword"]" />
-                                                <span class="text-danger"></span>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <br />
-                                                <br /><br />
-                                                <br />
-                                                <input type="submit" class="form-control" onclick="UpdateAdmin()" value="Save" />
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -314,26 +347,26 @@
     <environment include="Development">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-        @*<script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>*@
+        @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-        @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-            </script>*@
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
                 crossorigin="anonymous"
                 integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
         </script>
-        @*<script src="~/js/site.min.js" asp-append-version="true"></script>*@
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
@@ -347,20 +380,6 @@
     $(document).ready(function () {
 
         LoadImage();
-
-        $("#btnProfile").click(function () {
-
-            $(function () {
-
-                document.getElementById("myDropdown").classList.toggle("show");
-
-            });
-
-        })
-
-        $("#btnDimissAdminInfoModal").click(function () {
-            $("#AdminInfoModal").modal('hide');
-        });
 
         $("#imgPreview").change(function () {
             ReadImage(this);
@@ -392,7 +411,17 @@
                     document.getElementById("imgPreview").value = "";
                 }),
                 error: (function (msg) {
-                    alert(msg);
+                    alert('Ocurred an error, please try again later');
+                    LoadImage();
+                    $('#ImageModal').modal('hide');
+                    $('#btnCancel').attr("disabled", false);
+                    $('#btnSave').attr("disabled", false);
+                    $('#ImageUrl').attr("disabled", false);
+                    $('#imgPreview').attr("disabled", false);
+                    $('#imgPreview').attr("disabled", false);
+                    document.getElementById('ImageUrl').value = "";
+                    $('#blah').attr('src', '');
+                    document.getElementById("imgPreview").value = "";
                 })
             });
 
@@ -433,7 +462,7 @@
             },
             success: (function (msg) {
                 if (msg == true) {
-                    // alert('Data sucessfuly updated');
+                    location.reload();
                 }
             }),
             error: (function () {
@@ -441,20 +470,6 @@
             })
         });
 
-
-
-    }
-
-    function HideDropDown() {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
-        //Location.reload();
     }
 
     function LoadImage() {
