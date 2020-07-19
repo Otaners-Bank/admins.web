@@ -10,14 +10,14 @@
         "projectUniqueName": "C:\\projects\\OtanersBank\\admins.web\\OtanerBank\\OtanerBank\\OtanerBank.csproj",
         "projectName": "OtanerBank",
         "projectPath": "C:\\projects\\OtanersBank\\admins.web\\OtanerBank\\OtanerBank\\OtanerBank.csproj",
-        "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Thales dev\\.nuget\\packages\\",
         "outputPath": "C:\\projects\\OtanersBank\\admins.web\\OtanerBank\\OtanerBank\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Thales dev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

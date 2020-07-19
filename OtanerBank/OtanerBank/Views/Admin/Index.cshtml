@@ -28,63 +28,63 @@
         <!--DASH-->
         <div class="row">
 
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
 
             <div id="DivClients0" class="col-md-2 alert alert-info" role="alert">
                 <div class="row">
 
-                    <div id="Clients0" class="col-md-10">
-                        <h4 id="txtQte">Total: @Model.Count</h4>
+                    <div id="Clients0" class="col-md-12">
+                        <h4 id="txtQte">Total Clients: @Model.Count</h4>
                     </div>
 
-                    <div style="float: right;" class="col-md-2">
+                    @*<div style="float: right;" class="col-md-2">
                         <h5 id="Minimize0" onclick="MinimizeClient('0');" class="MinimizeButton">&times;</h5>
-                    </div>
+                    </div>*@
 
-                    <div id="LinkClients0" class="col-md-12">
+                    @*<div id="LinkClients0" class="col-md-12">
                         <a class="alert-link">show all</a>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>
 
-            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
 
             <div id="DivClients1" class="col-md-2 alert alert-danger" role="alert">
                 <div class="row">
 
-                    <div id="Clients1" class="col-md-10">
+                    <div id="Clients1" class="col-md-12">
                         <h4 id="txtQteInactives"></h4>
                     </div>
 
-                    <div style="float: right;" class="col-md-2">
+                    @*<div style="float: right;" class="col-md-2">
                         <h5 id="Minimize1" onclick="MinimizeClient('1');" class="MinimizeButton">&times;</h5>
-                    </div>
+                    </div>*@
 
-                    <div id="LinkClients1" class="col-md-12">
+                    @*<div id="LinkClients1" class="col-md-12">
                         <a class="alert-link">show only inactive</a>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>
 
-            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
 
             <div id="DivClients2" class="col-md-2 alert alert-success">
                 <div class="row">
 
 
-                    <div id="Clients2" class="col-md-10">
+                    <div id="Clients2" class="col-md-12">
                         <h4 id="txtQteActives"></h4>
                     </div>
 
-                    <div style="float: right;" class="col-md-2">
+                    @*<div style="float: right;" class="col-md-2">
                         <h5 id="Minimize2" onclick="MinimizeClient('2');" class="MinimizeButton">&times;</h5>
-                    </div>
+                    </div>*@
 
-                    <div id="LinkClients2" class="col-md-12">
+                    @*<div id="LinkClients2" class="col-md-12">
                         <a class="alert-link">show only active</a>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>
@@ -95,17 +95,18 @@
 
         <br />
 
-        <!--SEARCH BAR-->
+        <!--SEARCH BAR
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4" style="text-align: center;">
                 <input type="search" name="search" id="search_Pergunta" oninput="search()" placeholder="Search Client" style="width:100%; padding:5px; border:solid; border-color: #eee;
-        border-width: 1px;" class="form-control"> <br><br>
+            border-width: 1px;" class="form-control"> <br><br>
             </div>
             <div class="col-md-4"></div>
         </div>
 
         <br />
+        SEARCH BAR-->
 
         <!--CLIENTS-->
         <div class="row">
@@ -147,11 +148,11 @@
 
                             @if (item.STATUS == "1")
                             {
-                                @Html.ActionLink("Inactive", "Inactive", new { CPF = item.CPF })
+                                @Html.ActionLink("Inactivate", "Inactive", new { CPF = item.CPF })
                             }
                             else
                             {
-                                @Html.ActionLink("Active", "Active", new { CPF = item.CPF })
+                                @Html.ActionLink("Activate", "Active", new { CPF = item.CPF })
                             }
                             |
                         </p>
@@ -193,7 +194,7 @@ else
             url: 'https://localhost:44397/Admin/CountActives',
             dataType: "json",
             success: (function (msg) {
-                document.getElementById('txtQteActives').textContent = 'Actives: ' + msg;
+                document.getElementById('txtQteActives').textContent = 'Active Clients: ' + msg;
             }),
             error: (function (msg) {
 
@@ -205,7 +206,7 @@ else
             url: 'https://localhost:44397/Admin/CountInactives',
             dataType: "json",
             success: (function (msg) {
-                document.getElementById('txtQteInactives').textContent = 'Inactives: ' + msg;
+                document.getElementById('txtQteInactives').textContent = 'Inactive Clients: ' + msg;
             }),
             error: (function (msg) {
 
