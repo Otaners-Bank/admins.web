@@ -376,6 +376,10 @@
 
 <script type="text/javascript">
 
+    var ip = 'http://177.71.131.138';
+    // https://localhost:44329 = Local
+    // 177.71.131.138 = AWS Instance
+
     var inputImg = document.getElementById('path');
 
     $(document).ready(function () {
@@ -396,7 +400,7 @@
 
             $.ajax({
                 type: "POST",
-                url: 'https://localhost:44329/Admins/UploadImage?path=' + document.getElementById('ImageUrl').value + "&CPF=" + document.getElementById('CPF').value,
+                url: ip + '/Admins/UploadImage?path=' + document.getElementById('ImageUrl').value + "&CPF=" + document.getElementById('CPF').value,
                 dataType: "text",
                 success: (function (msg) {
                     alert(msg);

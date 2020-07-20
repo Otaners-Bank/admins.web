@@ -173,6 +173,10 @@
 
     <script type="text/javascript">
 
+        var ip = 'http://177.71.131.138';
+        // https://localhost:44329 = Local
+        // 177.71.131.138 = AWS Instance
+
         $(document).ready(function () {
 
             $('#txtCPF').mask('000.000.000-00');
@@ -247,13 +251,13 @@
 
             $.ajax({
                 type: "GET",
-                url: 'https://localhost:44329/Admins/Clients/SearchCPF?cpf=' + document.getElementById('txtCPF').value,
+                url: ip + '/Admins/Clients/SearchCPF?cpf=' + document.getElementById('txtCPF').value,
                 success: (function (msg) {
                     if (msg == '200') {
                         alert('This CPF is already in database, try again later');
                     } else if (msg == '400') {
                         alert('An error ocurred, try again later');
-                    } 
+                    }
                 }),
                 error: (function () {
                     alert('An error ocurred, try again later');
@@ -262,13 +266,13 @@
 
             $.ajax({
                 type: "GET",
-                url: 'https://localhost:44329/Admins/Clients/SearchEmail?email=' + document.getElementById('txtEmail').value,
+                url: ip + '/Admins/Clients/SearchEmail?email=' + document.getElementById('txtEmail').value,
                 success: (function (msg) {
                     if (msg == '200') {
                         alert('This Email is already in database, try again later');
                     } else if (msg == '400') {
                         alert('An error ocurred, try again later');
-                    } 
+                    }
                 }),
                 error: (function () {
                     alert('An error ocurred, try again later');

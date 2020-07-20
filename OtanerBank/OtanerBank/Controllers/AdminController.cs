@@ -16,15 +16,18 @@ namespace OtanerBank.Controllers
     {
         static HttpClient http = new HttpClient(); // to call the api later
 
-        // -- Dashboard
+        string ip = "http://177.71.131.138";
+        // https://localhost:44329 = Local
+        // 177.71.131.138 = AWS Instance
 
+        // -- Dashboard
         public async Task<IActionResult> Index()
         {
             try
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/All");
+                string response = await http.GetStringAsync(ip + "/Admins/Clients/Search/All");
                 List<Client> Clients = JsonConvert.DeserializeObject<List<Client>>(response);
 
                 return View(Clients.ToList());
@@ -40,7 +43,7 @@ namespace OtanerBank.Controllers
         public async Task<string> LoadImage()
         {
             Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
-            string response = await http.GetStringAsync("https://localhost:44329/Admins/DownloadImage?CPF=" + adm.CPF);
+            string response = await http.GetStringAsync(ip + "/Admins/DownloadImage?CPF=" + adm.CPF);
             return response;
         }
 
@@ -51,7 +54,7 @@ namespace OtanerBank.Controllers
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
             Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
-            var message = await http.PostAsync("https://localhost:44329/Admins/UploadImage?CPF=" + adm.CPF, httpContent);
+            var message = await http.PostAsync(ip + "/Admins/UploadImage?CPF=" + adm.CPF, httpContent);
 
             return "" + message.StatusCode;
         }
@@ -59,26 +62,26 @@ namespace OtanerBank.Controllers
         [HttpGet]
         public async Task<string> CountActives()
         {
-            string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Active/CountTotal");
+            string response = await http.GetStringAsync(ip + "/Admins/Clients/Active/CountTotal");
             return response;
         }
 
         [HttpGet]
         public async Task<string> CountInactives()
         {
-            string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Inactive/CountTotal");
+            string response = await http.GetStringAsync(ip + "/Admins/Clients/Inactive/CountTotal");
             return response;
         }
 
         public async Task<ActionResult> Inactive(string CPF)
         {
-            HttpResponseMessage response = await http.DeleteAsync("https://localhost:44329/Admins/Clients/InactiveClient/" + CPF);
+            HttpResponseMessage response = await http.DeleteAsync(ip + "/Admins/Clients/InactiveClient/" + CPF);
             return RedirectToAction("Index", "Admin");
         }
 
         public async Task<ActionResult> Active(string CPF)
         {
-            HttpResponseMessage response = await http.DeleteAsync("https://localhost:44329/Admins/Clients/ActiveClient/" + CPF);
+            HttpResponseMessage response = await http.DeleteAsync(ip + "/Admins/Clients/ActiveClient/" + CPF);
             return RedirectToAction("Index", "Admin");
         }
 
@@ -93,7 +96,7 @@ namespace OtanerBank.Controllers
                 {
                     Admin adm = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("AdminLogged"));
 
-                    Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/Search/" + adm.CPF);
+                    Task<string> response = http.GetStringAsync(ip + "/Admins/Search/" + adm.CPF);
 
                     Admin admin = JsonConvert.DeserializeObject<Admin>(response.Result);
 
@@ -131,7 +134,7 @@ namespace OtanerBank.Controllers
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/" + CPF);
+                string response = await http.GetStringAsync(ip + "/Admins/Clients/Search/" + CPF);
                 Client client = JsonConvert.DeserializeObject<Client>(response);
 
                 return View(client);
@@ -148,7 +151,7 @@ namespace OtanerBank.Controllers
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/" + CPF);
+                string response = await http.GetStringAsync(ip + "/Admins/Clients/Search/" + CPF);
                 Client client = JsonConvert.DeserializeObject<Client>(response);
 
                 return View(client);
@@ -166,7 +169,7 @@ namespace OtanerBank.Controllers
             {
                 if (AdminUnauthorized()) return RedirectToAction("Index", "Home");
 
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Clients/Search/" + client.CPF);
+                string response = await http.GetStringAsync(ip + "/Admins/Clients/Search/" + client.CPF);
                 Client oldClientInformation = JsonConvert.DeserializeObject<Client>(response);
 
                 client.PASSWORD = oldClientInformation.PASSWORD;
@@ -184,7 +187,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PutAsync("https://localhost:44329/Admins/Clients/Update/" + client.CPF, httpContent);
+                var message = await http.PutAsync(ip + "/Admins/Clients/Update/" + client.CPF, httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -229,7 +232,7 @@ namespace OtanerBank.Controllers
 
                 var jsonString = JsonConvert.SerializeObject(client); // Serializing object to put in the JsonObject
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var message = await http.PostAsync("https://localhost:44329/Admins/Clients/Insert", httpContent);
+                var message = await http.PostAsync(ip + "/Admins/Clients/Insert", httpContent);
 
                 return RedirectToAction("Index"); // and returns to the Home Page
             }
@@ -256,10 +259,10 @@ namespace OtanerBank.Controllers
                 {
                     var jsonString = JsonConvert.SerializeObject(admin); // Serializing object to put in the JsonObject
                     var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                    var message = await http.PutAsync("https://localhost:44329/Admins/Update/" + ViewData["CurrentAdminCPF"], httpContent);
+                    var message = await http.PutAsync(ip + "/Admins/Update/" + ViewData["CurrentAdminCPF"], httpContent);
 
 
-                    Task<string> response = http.GetStringAsync("https://localhost:44329/Admins/Search/" + admin.CPF);
+                    Task<string> response = http.GetStringAsync(ip + "/Admins/Search/" + admin.CPF);
                     Admin adm = JsonConvert.DeserializeObject<Admin>(response.Result);
 
                     var old_password = ViewData["CurrentAdminPassword"];

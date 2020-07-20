@@ -18,6 +18,10 @@ namespace OtanerBank.Controllers
     public class HomeController : Controller
     {
 
+        string ip = "http://177.71.131.138";
+        // https://localhost:44329 = Local
+        // 177.71.131.138 = AWS Instance
+
         public IActionResult Index()
         {
             if (authorized())
@@ -55,19 +59,19 @@ namespace OtanerBank.Controllers
 
             var jsonString = JsonConvert.SerializeObject(adm);
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            HttpResponseMessage message = await http.PostAsync("https://localhost:44329/Admins/Login", httpContent);
+            HttpResponseMessage message = await http.PostAsync(ip + "/Admins/Login", httpContent);
 
             adm = null;
 
             if (message.IsSuccessStatusCode)
             {
                 ViewData["ErrorLoginMessage"] = "";
-                string response = await http.GetStringAsync("https://localhost:44329/Admins/Search/Login/" + EMAIL);
+                string response = await http.GetStringAsync(ip + "/Admins/Search/Login/" + EMAIL);
                 Admin admin = JsonConvert.DeserializeObject<Admin>(response);
 
                 var admJson = JsonConvert.SerializeObject(admin);
                 HttpContext.Session.SetString("AdminLogged", admJson);
-                
+
 
                 return RedirectToAction("Index", "Admin");
             }
