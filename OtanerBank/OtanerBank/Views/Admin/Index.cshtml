@@ -191,7 +191,7 @@ else
 
         $.ajax({
             type: "GET",
-            url: 'https://localhost:44397/Admin/CountActives',
+            url: '/Admin/CountActives',
             dataType: "json",
             success: (function (msg) {
                 document.getElementById('txtQteActives').textContent = 'Active Clients: ' + msg;
@@ -203,7 +203,7 @@ else
 
         $.ajax({
             type: "GET",
-            url: 'https://localhost:44397/Admin/CountInactives',
+            url: '/Admin/CountInactives',
             dataType: "json",
             success: (function (msg) {
                 document.getElementById('txtQteInactives').textContent = 'Inactive Clients: ' + msg;

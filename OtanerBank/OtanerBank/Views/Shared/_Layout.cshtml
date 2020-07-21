@@ -457,7 +457,7 @@
 
         $.ajax({
             type: "POST",
-            url: 'https://localhost:44397/Admin/Profile',
+            url: '/Admin/Profile',
             dataType: "json",
             data: {
                 "cpf": "" + CPF + "",
@@ -484,7 +484,7 @@
         if (document.getElementById('imgAdmin') != null) {
             $.ajax({
                 type: "GET",
-                url: 'https://localhost:44397/Admin/LoadImage',
+                url: '/Admin/LoadImage',
                 dataType: "text",
                 success: (function (msg) {
                     document.getElementById('imgAdmin').style.backgroundImage = "url(" + msg + ")";
